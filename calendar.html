@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+		<link rel="stylesheet" href="css/angular-material.css">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700">
+
+		<link rel="stylesheet" href="css/main.css">
+	</head>
+
+	<body ng-app="sfApp" class="" ng-controller="mainCalendarCtrl">
+	
+		<div id="pageloader">
+			<svg class="spinner" width="65px" height="65px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg"><circle class="circle" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle></svg>
+		</div>
+		
+		<div ng-controller="ToolbarCtrl" class="mainToolbarContainer" md-whiteframe="1" style="position: absolute;width: 100%;">
+		
+			<!-- Main toolbar -->
+			<md-toolbar>
+				<div class="md-toolbar-tools">
+					<md-button class="md-icon-button" aria-label="Settings" ng-click="toggleLeft()">
+						<md-icon md-svg-icon="img/icons/menu.svg" class="sideMenuTriggerIcon"></md-icon>
+					</md-button>
+					<h2>
+						<span>Schedule</span>
+					</h2>
+					<span flex></span>
+					<md-button class="md-icon-button settingsTopBarIconBut" aria-label="Settings">
+						<md-icon md-svg-icon="img/icons/ic_settings_black_36px.svg"></md-icon>
+						<md-tooltip md-direction="left">
+							Settings
+						</md-tooltip>
+					</md-button>
+				</div>
+			</md-toolbar>
+			
+			<!-- Sub toolbar -->
+			<md-toolbar layout="row">
+				<md-button ng-disabled="true" class="md-raised md-primary" id="goToCurrentPeriod">Today</md-button>
+				<div layout="row" layout-align="center center" class="periodSelectorContainer">
+					<md-button class="md-icon-button" aria-label="More">
+						<md-icon md-svg-icon="img/icons/ic_keyboard_arrow_left_black_36px.svg"></md-icon>
+					</md-button>
+					<div class="periodSelectorPeriod">august 2016</div>
+					<md-button class="md-icon-button" aria-label="More">
+						<md-icon md-svg-icon="img/icons/ic_keyboard_arrow_right_black_36px.svg"></md-icon>
+					</md-button>
+				</div>
+				<div class="layoutSelectorContainer">
+					<div class="layoutSelectorItem dayLayoutSelector" onClick="toggleToDayView()">
+						<md-button class="md-icon-button" aria-label="More">
+							<md-icon md-svg-icon="img/icons/ic_view_day_black_36px.svg"></md-icon>
+						</md-button>
+						<div>Day</div>
+					</div>
+					<div class="layoutSelectorItem weekLayoutSelector layoutActive" onClick="toggleToWeekView()">
+						<md-button class="md-icon-button" aria-label="More">
+							<md-icon md-svg-icon="img/icons/ic_view_week_black_36px.svg"></md-icon>
+						</md-button>
+						<div>Week</div>
+					</div>
+					<div class="layoutSelectorItem monthLayoutSelector" onClick="toggleToMonthView()">
+						<md-button class="md-icon-button" aria-label="More">
+							<md-icon md-svg-icon="img/icons/ic_view_module_black_36px.svg"></md-icon>
+						</md-button>
+						<div>Month</div>
+					</div>
+				</div>
+			</md-toolbar>
+		</div>
+		
+		<!-- Sidebar -->
+		<nav ng-controller="LeftNavbarCtrl">
+			<md-sidenav class="md-sidenav-left" md-component-id="leftNavbar" md-whiteframe="4" style="width: 240px;">
+				<md-content style="height: 100%;">
+				
+					<span class="nav-logo">
+						<img src="img/jahia_logo.svg" alt="Logo">
+					</span>
+					<nav>
+						<dl>
+							<dt class="nav-active">Calendar</dt>
+							<dt onclick="window.location.href = 'publisher.html'">Content Manager</dt>
+							<dt onclick="window.location.href = 'dashboard.html'">Dashboard</dt>
+							<dt onclick="window.location.href = 'settings.html'">Settings</dt>
+						</dl>
+					</nav>
+					<div class="nav-footer">
+						<p class="copyright">Jahia Solutions ©</p>
+						<a href="#">Privacy</a> &amp; <a href="#">Terms</a>
+					</div>
+				
+				</md-content>
+			</md-sidenav>
+		</nav>
+
+		<!-- Filters -->
+		<div class="calendarFilterContainer">
+		
+			<!--<div class="calFilterCaption">Social Media to display:</div>-->
+		
+			<div class="checkboxFilterContainer">
+				<md-checkbox ng-model="data.cb1" aria-label="Facebook" class="md-primary">
+					Facebook
+				</md-checkbox>
+			</div>
+			
+			<div class="checkboxFilterContainer">
+				<md-checkbox ng-model="data.cb2" aria-label="Twitter" class="md-primary">
+					Twitter
+				</md-checkbox>
+			</div>
+			
+			<div class="checkboxFilterContainer">
+				<md-checkbox ng-model="data.cb3" aria-label="Instagram" class="md-primary">
+					Instagram
+				</md-checkbox>
+			</div>
+		</div>
+		
+		<!-- Calendar grid -->
+		
+		<!-- Month View -->
+		<div class="calendarMonthGridContainer" style="display:none;">
+		
+			<div class="monthRow">
+				<div class="monthDay">
+					<time class="notThisMonth">26</time>
+					<span class="weekDay">Sun</span>
+				</div>
+				<div class="monthDay">
+					<time class="notThisMonth">27</time>
+					<span class="weekDay">Mon</span>
+				</div>
+				<div class="monthDay">
+					<time class="notThisMonth">28</time>
+					<span class="weekDay">Tue</span>
+				</div>
+				<div class="monthDay">
+					<time class="notThisMonth">29</time>
+					<span class="weekDay">Wed</span>
+				</div>
+				<div class="monthDay">
+					<time class="notThisMonth">30</time>
+					<span class="weekDay">Thu</span>
+				</div>
+				<div class="monthDay">
+					<time class="">1 Aug</time>
+					<span class="weekDay">Fri</span>
+					<span class="socilaIconsContrainer">
+						<md-icon md-svg-icon="img/icons/facebook-logo.svg" class="socialIcon"></md-icon>
+						<md-icon md-svg-icon="img/icons/facebook-logo.svg" class="socialIcon"></md-icon>
+						<md-icon md-svg-icon="img/icons/twitter.svg" class="socialIcon"></md-icon>
+						<md-icon md-svg-icon="img/icons/twitter.svg" class="socialIcon"></md-icon>
+						<md-icon md-svg-icon="img/icons/twitter.svg" class="socialIcon"></md-icon>
+					</span>
+				</div>
+				<div class="monthDay lastGridSegment">
+					<time class="">2</time>
+					<span class="weekDay">Sat</span>
+				</div>
+			</div>
+			
+			<div class="monthRow">
+				<div class="monthDay">
+					<time class="">3</time>
+					<span class="socilaIconsContrainer">
+						<md-icon md-svg-icon="img/icons/twitter.svg" class="socialIcon"></md-icon>
+						<strong class="pastEvent">x6</strong>
+						<md-icon md-svg-icon="img/icons/instagram.svg" class="socialIcon"></md-icon>
+					</span>
+				</div>
+				<div class="monthDay">
+					<time class="">4</time>
+				</div>
+				<div class="monthDay">
+					<time class="">5</time>
+					<span class="socilaIconsContrainer">
+						<md-icon md-svg-icon="img/icons/facebook-logo.svg" class="socialIcon"></md-icon>
+						<md-icon md-svg-icon="img/icons/twitter.svg" class="socialIcon"></md-icon>
+						<md-icon md-svg-icon="img/icons/twitter.svg" class="socialIcon"></md-icon>
+					</span>
+				</div>
+				<div class="monthDay">
+					<time class="">6</time>
+					<span class="socilaIconsContrainer">
+						<md-icon md-svg-icon="img/icons/facebook-logo.svg" class="socialIcon"></md-icon>
+					</span>
+				</div>
+				<div class="monthDay">
+					<time class="">7</time>
+					<span class="socilaIconsContrainer">
+						<md-icon md-svg-icon="img/icons/facebook-logo.svg" class="socialIcon"></md-icon>
+						<md-icon md-svg-icon="img/icons/facebook-logo.svg" class="socialIcon"></md-icon>
+					</span>
+				</div>
+				<div class="monthDay">
+					<time class="">8</time>
+					<span class="socilaIconsContrainer">
+						<md-icon md-svg-icon="img/icons/facebook-logo.svg" class="socialIcon"></md-icon>
+						<md-icon md-svg-icon="img/icons/twitter.svg" class="socialIcon"></md-icon>
+						<md-icon md-svg-icon="img/icons/instagram.svg" class="socialIcon"></md-icon>
+					</span>
+				</div>
+				<div class="monthDay lastGridSegment">
+					<time class="">9</time>
+					<span class="socilaIconsContrainer">
+						<md-icon md-svg-icon="img/icons/facebook-logo.svg" class="socialIcon"></md-icon>
+						<md-icon md-svg-icon="img/icons/twitter.svg" class="socialIcon"></md-icon>
+					</span>
+				</div>
+			</div>
+			
+			<div class="monthRow">
+				<div class="monthDay">
+					<time class="">10</time>
+					<span class="socilaIconsContrainer">
+						<md-icon md-svg-icon="img/icons/facebook-logo.svg" class="socialIcon"></md-icon>
+						<md-icon md-svg-icon="img/icons/facebook-logo.svg" class="socialIcon"></md-icon>
+						<md-icon md-svg-icon="img/icons/twitter.svg" class="socialIcon"></md-icon>
+						<md-icon md-svg-icon="img/icons/twitter.svg" class="socialIcon"></md-icon>
+						<md-icon md-svg-icon="img/icons/twitter.svg" class="socialIcon"></md-icon>
+						<md-icon md-svg-icon="img/icons/facebook-logo.svg" class="socialIcon"></md-icon>
+					</span>
+				</div>
+				<div class="monthDay">
+					<time class="">11</time>
+					<span class="socilaIconsContrainer">
+						<md-icon md-svg-icon="img/icons/facebook-logo.svg" class="socialIcon"></md-icon>
+						<md-icon md-svg-icon="img/icons/instagram.svg" class="socialIcon"></md-icon>
+						<md-icon md-svg-icon="img/icons/instagram.svg" class="socialIcon"></md-icon>
+						<md-icon md-svg-icon="img/icons/twitter.svg" class="socialIcon"></md-icon>
+					</span>
+				</div>
+				<div class="monthDay todaySegment">
+					<time class="">12</time>
+					<span class="socilaIconsContrainer">
+						<md-icon md-svg-icon="img/icons/facebook-logo.svg" class="socialIcon facebookBackgroundColor"></md-icon>
+						<md-icon md-svg-icon="img/icons/twitter.svg" class="socialIcon twitterBackgroundColor"></md-icon>
+						<md-icon md-svg-icon="img/icons/facebook-logo.svg" class="socialIcon facebookBackgroundColor"></md-icon>
+						<md-icon md-svg-icon="img/icons/twitter.svg" class="socialIcon twitterBackgroundColor"></md-icon>
+					</span>
+				</div>
+				<div class="monthDay">
+					<time class="">13</time>
+					<span class="socilaIconsContrainer">
+						<md-icon md-svg-icon="img/icons/instagram.svg" class="socialIcon instagramBackgroundColor"></md-icon>
+					</span>
+				</div>
+				<div class="monthDay">
+					<time class="">14</time>
+				</div>
+				<div class="monthDay">
+					<time class="">15</time>
+					<span class="socilaIconsContrainer">
+						<md-icon md-svg-icon="img/icons/facebook-logo.svg" class="socialIcon facebookBackgroundColor"></md-icon>
+						<md-icon md-svg-icon="img/icons/twitter.svg" class="socialIcon twitterBackgroundColor"></md-icon>
+						<md-icon md-svg-icon="img/icons/facebook-logo.svg" class="socialIcon facebookBackgroundColor"></md-icon>
+						<md-icon md-svg-icon="img/icons/twitter.svg" class="socialIcon twitterBackgroundColor"></md-icon>
+						<strong>x4</strong>
+					</span>
+				</div>
+				<div class="monthDay lastGridSegment">
+					<time class="">16</time>
+				</div>
+			</div>
+			
+			<div class="monthRow">
+				<div class="monthDay">
+					<time class="">17</time>
+				</div>
+				<div class="monthDay">
+					<time class="">18</time>
+					<span class="socilaIconsContrainer">
+						<md-icon md-svg-icon="img/icons/facebook-logo.svg" class="socialIcon facebookBackgroundColor"></md-icon>
+						<md-icon md-svg-icon="img/icons/facebook-logo.svg" class="socialIcon facebookBackgroundColor"></md-icon>
+						<md-icon md-svg-icon="img/icons/twitter.svg" class="socialIcon twitterBackgroundColor"></md-icon>
+						<md-icon md-svg-icon="img/icons/twitter.svg" class="socialIcon twitterBackgroundColor"></md-icon>
+						<md-icon md-svg-icon="img/icons/twitter.svg" class="socialIcon twitterBackgroundColor"></md-icon>
+						<md-icon md-svg-icon="img/icons/twitter.svg" class="socialIcon twitterBackgroundColor"></md-icon>
+					</span>
+				</div>
+				<div class="monthDay">
+					<time class="">19</time>
+					<span class="socilaIconsContrainer">
+						<md-icon md-svg-icon="img/icons/instagram.svg" class="socialIcon instagramBackgroundColor"></md-icon>
+						<md-icon md-svg-icon="img/icons/instagram.svg" class="socialIcon instagramBackgroundColor"></md-icon>
+					</span>
+				</div>
+				<div class="monthDay">
+					<time class="">20</time>
+				</div>
+				<div class="monthDay">
+					<time class="">21</time>
+					<span class="socilaIconsContrainer">
+						<md-icon md-svg-icon="img/icons/twitter.svg" class="socialIcon twitterBackgroundColor"></md-icon>
+						<md-icon md-svg-icon="img/icons/twitter.svg" class="socialIcon twitterBackgroundColor"></md-icon>
+						<md-icon md-svg-icon="img/icons/instagram.svg" class="socialIcon instagramBackgroundColor"></md-icon>
+					</span>
+				</div>
+				<div class="monthDay">
+					<time class="">22</time>
+					<span class="socilaIconsContrainer">
+						<md-icon md-svg-icon="img/icons/facebook-logo.svg" class="socialIcon facebookBackgroundColor"></md-icon>
+						<md-icon md-svg-icon="img/icons/twitter.svg" class="socialIcon twitterBackgroundColor" ng-click="showPrerenderedDialog($event)"></md-icon>
+					</span>
+				</div>
+				<div class="monthDay lastGridSegment">
+					<time class="">23</time>
+				</div>
+			</div>
+			
+			<div class="monthRow">
+				<div class="monthDay">
+					<time class="">24</time>
+					<span class="socilaIconsContrainer">
+						<md-icon md-svg-icon="img/icons/instagram.svg" class="socialIcon instagramBackgroundColor"></md-icon>
+						<strong>x5</strong>
+					</span>
+				</div>
+				<div class="monthDay">
+					<time class="">25</time>
+				</div>
+				<div class="monthDay">
+					<time class="">26</time>
+					<span class="socilaIconsContrainer">
+						<md-icon md-svg-icon="img/icons/facebook-logo.svg" class="socialIcon facebookBackgroundColor"></md-icon>
+						<strong>x4</strong>
+						<md-icon md-svg-icon="img/icons/twitter.svg" class="socialIcon twitterBackgroundColor"></md-icon>
+						<md-icon md-svg-icon="img/icons/twitter.svg" class="socialIcon twitterBackgroundColor"></md-icon>
+						<md-icon md-svg-icon="img/icons/twitter.svg" class="socialIcon twitterBackgroundColor"></md-icon>
+					</span>
+				</div>
+				<div class="monthDay">
+					<time class="">27</time>
+				</div>
+				<div class="monthDay">
+					<time class="">28</time>
+				</div>
+				<div class="monthDay">
+					<time class="">29</time>
+				</div>
+				<div class="monthDay lastGridSegment">
+					<time class="">30</time>
+				</div>
+			</div>
+			
+			<div class="monthRow">
+				<div class="monthDay">
+					<time class="">31</time>
+				</div>
+				<div class="monthDay">
+					<time class="notThisMonth">1 Sept</time>
+				</div>
+				<div class="monthDay">
+					<time class="notThisMonth">2</time>
+				</div>
+				<div class="monthDay">
+					<time class="notThisMonth">3</time>
+				</div>
+				<div class="monthDay">
+					<time class="notThisMonth">4</time>
+				</div>
+				<div class="monthDay">
+					<time class="notThisMonth">5</time>
+				</div>
+				<div class="monthDay lastGridSegment">
+					<time class="notThisMonth">6</time>
+				</div>
+			</div>
+			
+		</div>
+		
+		<!-- Week View -->
+		<div class="calendarWeekGridContainer">
+		
+			<div class="weekRow">
+				<div class="weekDay">
+					<span class="weekDayName">Sun 10</span>
+					<span class="weekDayHour">00</span>
+				</div>
+				<div class="weekDay">
+					<span class="weekDayName">Mon 11</span>
+				</div>
+				<div class="weekDay" style="background: #f7f7f7;width: calc((100% / 7) - 1px);border-left: 1px solid #ddd;">
+					<span class="weekDayName weekDayNameToday">Tue 12</span>
+				</div>
+				<div class="weekDay">
+					<span class="weekDayName">Wed 13</span>
+				</div>
+				<div class="weekDay">
+					<span class="weekDayName">Thu 14</span>
+				</div>
+				<div class="weekDay">
+					<span class="weekDayName">Fri 15</span>
+				</div>
+				<div class="weekDay">
+					<span class="weekDayName">Sat 16</span>
+				</div>
+			</div>
+			
+			<div class="weekRow">
+				<div class="weekDay">
+					<span class="weekDayHour">04</span>
+					<span class="socilaIconsContrainerWeek">
+						<div class="socialEventTagWeek pastPublicationColor">
+							<md-icon md-svg-icon="img/icons/twitter.svg" class="socialIcon"></md-icon>
+							<span class="socialEventTagWeekDesc">Lorem ipsum dolor sit amet consec</span>
+						</div>
+						<div class="socialEventTagWeek facebookBackgroundColor pastPublicationColor">
+							<md-icon md-svg-icon="img/icons/facebook-logo.svg" class="socialIcon"></md-icon>
+							<span class="socialEventTagWeekDesc">Id mei diam lucilius ut vis alia fucit</span>
+						</div>
+					</span>
+				</div>
+				<div class="weekDay">
+					<span class="socilaIconsContrainerWeek">
+						<div class="socialEventTagWeek pastPublicationColor">
+							<md-icon md-svg-icon="img/icons/twitter.svg" class="socialIcon"></md-icon>
+							<span class="socialEventTagWeekDesc">Nemore antiopam consetetur</span>
+						</div>
+					</span>
+				</div>
+				<div class="weekDay" style="background: #f7f7f7;width: calc((100% / 7) - 1px);border-left: 1px solid #ddd;">
+				</div>
+				<div class="weekDay">
+				</div>
+				<div class="weekDay">
+				</div>
+				<div class="weekDay">
+				</div>
+				<div class="weekDay">
+				</div>
+			</div>
+			
+			<div class="weekRow">
+				<div class="weekDay">
+					<span class="weekDayHour">08</span>
+				</div>
+				<div class="weekDay">
+					<span class="socilaIconsContrainerWeek">
+						<div class="socialEventTagWeek instagramBackgroundColor pastPublicationColor">
+							<md-icon md-svg-icon="img/icons/instagram.svg" class="socialIcon"></md-icon>
+							<span class="socialEventTagWeekDesc">Nemore antiopam consetetur</span>
+						</div>
+						<div class="socialEventTagWeek instagramBackgroundColor pastPublicationColor">
+							<md-icon md-svg-icon="img/icons/instagram.svg" class="socialIcon"></md-icon>
+							<span class="socialEventTagWeekDesc">Lorem ipsum dolor sit amet costur</span>
+						</div>
+					</span>
+				</div>
+				<div class="weekDay" style="background: #f7f7f7;width: calc((100% / 7) - 1px);border-left: 1px solid #ddd;">
+					<span class="socilaIconsContrainerWeek">
+						<div class="socialEventTagWeek facebookBackgroundColor">
+							<md-icon md-svg-icon="img/icons/facebook-logo.svg" class="socialIcon"></md-icon>
+							<span class="socialEventTagWeekDesc">Id mei diam lucilius ut vis alia fucit</span>
+						</div>
+						<div class="socialEventTagWeek">
+							<md-icon md-svg-icon="img/icons/twitter.svg" class="socialIcon"></md-icon>
+							<span class="socialEventTagWeekDesc">Nemore antiopam consetetur</span>
+						</div>
+					</span>
+				</div>
+				<div class="weekDay">
+				</div>
+				<div class="weekDay">
+				</div>
+				<div class="weekDay">
+				</div>
+				<div class="weekDay">
+				</div>
+			</div>
+			
+			<div class="weekRow">
+				<div class="weekDay">
+					<span class="weekDayHour">12</span>
+				</div>
+				<div class="weekDay">
+				</div>
+				<div class="weekDay" style="background: #f7f7f7;width: calc((100% / 7) - 1px);border-left: 1px solid #ddd;">
+					<span class="socilaIconsContrainerWeek">
+						<div class="socialEventTagWeek facebookBackgroundColor">
+							<md-icon md-svg-icon="img/icons/facebook-logo.svg" class="socialIcon"></md-icon>
+							<span class="socialEventTagWeekDesc">Id mei diam lucilius ut vis alia fucit</span>
+						</div>
+					</span>
+				</div>
+				<div class="weekDay">
+					<span class="socilaIconsContrainerWeek">
+						<div class="socialEventTagWeek instagramBackgroundColor">
+							<md-icon md-svg-icon="img/icons/instagram.svg" class="socialIcon"></md-icon>
+							<span class="socialEventTagWeekDesc">Lorem ipsum dolor sit amet costur</span>
+						</div>
+					</span>
+				</div>
+				<div class="weekDay">
+				</div>
+				<div class="weekDay">
+				</div>
+				<div class="weekDay">
+				</div>
+			</div>
+			
+			<div class="weekRow">
+				<div class="weekDay">
+					<span class="weekDayHour">16</span>
+				</div>
+				<div class="weekDay">
+					<span class="socilaIconsContrainerWeek">
+						<div class="socialEventTagWeek facebookBackgroundColor pastPublicationColor">
+							<md-icon md-svg-icon="img/icons/facebook-logo.svg" class="socialIcon"></md-icon>
+							<span class="socialEventTagWeekDesc">Id mei diam lucilius ut vis alia fucit</span>
+						</div>
+					</span>
+				</div>
+				<div class="weekDay" style="background: #f7f7f7;width: calc((100% / 7) - 1px);border-left: 1px solid #ddd;">
+				</div>
+				<div class="weekDay">
+				</div>
+				<div class="weekDay">
+				</div>
+				<div class="weekDay">
+				</div>
+				<div class="weekDay">
+				</div>
+			</div>
+			
+			<div class="weekRow">
+				<div class="weekDay">
+					<span class="weekDayHour">20</span>
+				</div>
+				<div class="weekDay">
+				</div>
+				<div class="weekDay" style="background: #f7f7f7;width: calc((100% / 7) - 1px);border-left: 1px solid #ddd;">
+					<span class="socilaIconsContrainerWeek">
+						<div class="socialEventTagWeek">
+							<md-icon md-svg-icon="img/icons/twitter.svg" class="socialIcon"></md-icon>
+							<span class="socialEventTagWeekDesc">Nemore antiopam consetetur</span>
+						</div>
+					</span>
+				</div>
+				<div class="weekDay">
+				</div>
+				<div class="weekDay">
+				</div>
+				<div class="weekDay">
+				</div>
+				<div class="weekDay">
+				</div>
+			</div>
+			
+		</div>
+		
+		<!-- Day View -->
+		<div class="calendarDayGridContainer" style="display:none;">
+			<div class="dayRow">
+				<div class="dayHour">
+					<span class="dayDayHour">00</span>
+				</div>
+				<div class="dayHour">
+					<span class="dayDayHour">06</span>
+				</div>
+				<div class="dayHour">
+					<span class="dayDayHour">12</span>
+				</div>
+				<div class="dayHour">
+					<span class="dayDayHour">18</span>
+				</div>
+			</div>
+			<div class="dayRow">
+				<div class="dayHour">
+					<span class="dayDayHour">01</span>
+				</div>
+				<div class="dayHour">
+					<span class="dayDayHour">07</span>
+					<span class="socilaIconsContrainerWeek">
+						<div class="socialEventTagDay">
+							<md-icon md-svg-icon="img/icons/twitter.svg" class="socialIcon"></md-icon>
+							<span class="socialEventTagWeekDesc">Nemore antiopam consetetur</span>
+							<span class="socialEventTagWeekDayTime">07:30</span>
+						</div>
+					</span>
+				</div>
+				<div class="dayHour">
+					<span class="dayDayHour">13</span>
+				</div>
+				<div class="dayHour">
+					<span class="dayDayHour">19</span>
+				</div>
+			</div>
+			<div class="dayRow">
+				<div class="dayHour">
+					<span class="dayDayHour">02</span>
+				</div>
+				<div class="dayHour">
+					<span class="dayDayHour">08</span>
+				</div>
+				<div class="dayHour">
+					<span class="dayDayHour">14</span>
+				</div>
+				<div class="dayHour">
+					<span class="dayDayHour">20</span>
+				</div>
+			</div>
+			<div class="dayRow">
+				<div class="dayHour">
+					<span class="dayDayHour">03</span>
+				</div>
+				<div class="dayHour">
+					<span class="dayDayHour">09</span>
+					<span class="socilaIconsContrainerWeek">
+						<div class="socialEventTagDay instagramBackgroundColor">
+							<md-icon md-svg-icon="img/icons/instagram.svg" class="socialIcon"></md-icon>
+							<span class="socialEventTagWeekDesc">Lorem ipsum dolor sit amet costur</span>
+							<span class="socialEventTagWeekDayTime">09:15</span>
+						</div>
+						<div class="socialEventTagDay instagramBackgroundColor">
+							<md-icon md-svg-icon="img/icons/instagram.svg" class="socialIcon"></md-icon>
+							<span class="socialEventTagWeekDesc">Nemore antiopam consetetur eu cum, no mundi</span>
+							<span class="socialEventTagWeekDayTime">09:30</span>
+						</div>
+					</span>
+				</div>
+				<div class="dayHour">
+					<span class="dayDayHour">15</span>
+				</div>
+				<div class="dayHour">
+					<span class="dayDayHour">21</span>
+				</div>
+			</div>
+			<div class="dayRow">
+				<div class="dayHour">
+					<span class="dayDayHour">04</span>
+				</div>
+				<div class="dayHour">
+					<span class="dayDayHour">10</span>
+				</div>
+				<div class="dayHour">
+					<span class="dayDayHour">16</span>
+					<span class="socilaIconsContrainerWeek">
+						<div class="socialEventTagDay facebookBackgroundColor">
+							<md-icon md-svg-icon="img/icons/facebook-logo.svg" class="socialIcon"></md-icon>
+							<span class="socialEventTagWeekDesc">Id mei diam lucilius ut vis alia fucit</span>
+							<span class="socialEventTagWeekDayTime">16:00</span>
+						</div>
+					</span>
+				</div>
+				<div class="dayHour">
+					<span class="dayDayHour">22</span>
+				</div>
+			</div>
+			<div class="dayRow">
+				<div class="dayHour">
+					<span class="dayDayHour">05</span>
+				</div>
+				<div class="dayHour">
+					<span class="dayDayHour">11</span>
+				</div>
+				<div class="dayHour">
+					<span class="dayDayHour">17</span>
+				</div>
+				<div class="dayHour">
+					<span class="dayDayHour">23</span>
+				</div>
+			</div>
+		</div>
+		
+		<!-- Dialog -->
+		 	<div style="visibility: hidden">
+				<div class="md-dialog-container" id="myDialogFace">
+					<md-dialog class="postDetailsModal">
+						<div class="previewSocialIconContainer">
+							<md-icon md-svg-icon="img/icons/twitter_blue.svg" class="socialIcon"></md-icon>
+						</div>
+						<div class="postDetailsPreviewContent">
+							<h1>Lorem ipsum dolor sit amet consectetur</h1>
+							<div class="md-subhead tbpContentPreviewInfo">Author: <span class="contentCardInfoHglt">Yoda</span>&nbsp;&nbsp;|&nbsp;&nbsp;Created: <span class="contentCardInfoHglt">May 4, 12:21</span></div>
+							<time class="toBePostedDate">Scheduled to be posted on the <span>8<sup>th</sup></span> of <span>August</span> at <span>17h30</span></time>
+						</div>
+					</md-dialog>
+				</div>
+			</div>
+		
+		<!-- FAB -->
+		<md-fab class="newPublicationFab">
+			<md-button aria-label="new" class="md-fab" onClick="window.open('publisher.html', '_self');">
+				<md-icon md-svg-src="img/icons/ic_event_white_36px.svg"></md-icon>
+				<md-tooltip md-direction="left">
+					Schedule new piblication
+				</md-tooltip>
+			</md-button>
+		</md-fab>
+	
+		<!-- JS imports -->
+		<script src="js/jquery.min.js" type="text/javascript"></script>
+		
+		<script src="js/angular.js" type="text/javascript"></script>
+		<script src="js/angular-animate.min.js" type="text/javascript"></script>
+		<script src="js/angular-route.min.js" type="text/javascript"></script>
+		<script src="js/angular-aria.min.js" type="text/javascript"></script>
+		<script src="js/angular-messages.min.js" type="text/javascript"></script>
+		<script src="js/angular-material.js" type="text/javascript"></script>
+		
+		<script src="js/moment.min.js" type="text/javascript"></script>
+		<script src="js/mdPickers.min.js" type="text/javascript"></script>
+	
+		<script src="js/main.js" type="text/javascript"></script>
+		
+		<script>
+			// Wait for window load
+			$(window).load(function() {
+			
+				setTimeout(function(){
+					$("#pageloader").fadeOut('fast');
+				}, 500);
+			});
+		</script>
+
+	</body>
+</html>

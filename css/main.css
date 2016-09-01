@@ -1,0 +1,1844 @@
+/*========================
+|															|
+|		Stylesheet of Social Factory			|
+|		for http://jahia.com						|
+|															|
+|		Author: Jérémy Pougnet				|
+|		Start : 07/06/2016						|
+|															|
+=========================*/
+
+
+/*======= Generic styles =======*/
+
+body {
+	background-color: #fafafa;
+	width: 100%;
+	overflow-x: hidden;
+}
+
+/* Page loader */
+#pageloader {
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    z-index: 999;
+    background: #EFF3F6;
+    text-align: center;
+    top: 0;
+    left: 0;
+}
+
+#pageloader svg {
+    top: 45%;
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: auto;
+    width: 42px;
+}
+#pageloader .spinner {
+	-webkit-animation: rotation 1.4s linear infinite;
+	animation: rotation 1.4s linear infinite;
+}
+
+@-webkit-keyframes rotation {
+	0% {
+		-webkit-transform: rotate(0deg);
+		transform: rotate(0deg);
+	}
+
+	100% {
+		-webkit-transform: rotate(270deg);
+		transform: rotate(270deg);
+	}
+}
+
+@keyframes rotation {
+	0% {
+		-webkit-transform: rotate(0deg);
+		transform: rotate(0deg);
+	}
+
+	100% {
+		-webkit-transform: rotate(270deg);
+		transform: rotate(270deg);
+	}
+}
+
+#pageloader .circle {
+	stroke-dasharray: 187;
+	stroke-dashoffset: 0;
+	-webkit-transform-origin: center;
+	-ms-transform-origin: center;
+	transform-origin: center;
+	-webkit-animation: turn 1.4s ease-in-out infinite;
+	animation: turn 1.4s ease-in-out infinite;
+}
+
+@-webkit-keyframes turn {
+	0% {
+		stroke-dashoffset: 187;
+	}
+
+	50% {
+		stroke-dashoffset: 46.75;
+		-webkit-transform: rotate(135deg);
+		transform: rotate(135deg);
+	}
+
+	100% {
+		stroke-dashoffset: 187;
+		-webkit-transform: rotate(450deg);
+		transform: rotate(450deg);
+	}
+}
+
+@keyframes turn {
+	0% {
+		stroke-dashoffset: 187;
+	}
+
+	50% {
+		stroke-dashoffset: 46.75;
+		-webkit-transform: rotate(135deg);
+		transform: rotate(135deg);
+	}
+
+	100% {
+		stroke-dashoffset: 187;
+		-webkit-transform: rotate(450deg);
+		transform: rotate(450deg);
+	}
+}
+
+#pageloader svg:nth-child(1){
+	stroke: rgb(255,215,64);
+}
+
+
+/*======= Angular Theme override =======*/
+
+/* svg color */
+md-toolbar.md-default-theme:not(.md-menu-toolbar) md-icon, md-toolbar:not(.md-menu-toolbar) md-icon {
+    color: rgb(0, 0, 0) !important;
+}
+
+/* toolbar color and background */
+md-toolbar.md-default-theme:not(.md-menu-toolbar), md-toolbar:not(.md-menu-toolbar) {
+    background-color: rgb(96, 125, 139) !important;
+    color: rgb(255, 255, 255) !important;
+}
+
+/* tooltip */
+md-tooltip ._md-content {
+    background-color: #333;
+    box-shadow: none;
+    font-weight: 500;
+    font-size: 11px;
+    padding: 2px 8px;
+}
+
+/* FAB hove background color */
+.md-button.md-default-theme.md-fab:not([disabled]):hover, .md-button.md-fab:not([disabled]):hover {
+    background-color: rgb(255,215,64);
+}
+
+/* Button disable text color */
+.md-button[disabled],
+.md-button.md-raised[disabled] {
+    cursor: default;
+}
+
+#goToCurrentPeriod.md-button[disabled],
+#goToCurrentPeriod.md-button.md-raised[disabled] {
+    color: rgba(255,255,255,0.42) !important;
+    cursor: default;
+    background-color: rgb(109, 138, 152);
+}
+
+/* Flat buttom with secondary color hover background*/
+.md-accent.md-button:not([disabled]):hover {
+	background-color: rgba(255,215,64,0.15);
+}
+
+/**/
+button:not(.md-primary).md-focused {
+	background-color: transparent !important;
+}
+
+/**/
+
+md-checkbox.md-checked ._md-icon:after {
+    left: 6.86667px;
+}
+
+md-checkbox.md-checked ._md-icon:after {
+    border-color: rgb(255, 255, 255);
+}
+
+
+
+/**/
+
+nav md-backdrop {
+	position: fixed;
+}
+
+nav .md-sidenav-left {
+	position: fixed;
+}
+
+.md-sidenav-left .nav-logo {
+    border-bottom: 1px solid #e0e0e0;
+    display: block;
+    height: 64px;
+    padding: 14px 0 11px 24px;
+    position: relative;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.md-sidenav-left .nav-logo img {
+    height: 36px;
+    opacity: .76;
+}
+
+.md-sidenav-left nav dl {
+    margin-top: 0;
+}
+
+.md-sidenav-left nav {
+    font-size: 13px;
+    padding: 12px 0 10px 0;
+    -webkit-transform: translateZ(0);
+    -moz-transform: translateZ(0);
+    -ms-transform: translateZ(0);
+    -o-transform: translateZ(0);
+    transform: translateZ(0);
+}
+
+.md-sidenav-left nav dl dt {
+    border-left: 2px solid transparent;
+    color: #333;
+    font-weight: 700;
+    margin-top: 0;
+    padding-top: 18px;
+    padding-bottom: 17px;
+    padding: 18px 0 17px 22px;
+    line-height: 13px;
+}
+
+.md-sidenav-left nav dt:hover {
+    background-color: #eee;
+    outline: 0;
+    cursor: pointer;
+}
+
+.md-sidenav-left nav dl dt.nav-active {
+    color: #ffd740;
+}
+
+.md-sidenav-left nav dl dt.nav-active:hover {
+    background-color: #fff;
+    cursor: default;
+}
+
+.md-sidenav-left .nav-footer {
+    border-top: 1px solid #e0e0e0;
+    bottom: 0;
+    color: #212121;
+    font-size: 13px;
+    height: 96px;
+    line-height: 24px;
+    padding: 24px;
+    position: absolute;
+    width: 100%;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    font-weight: 400;
+}
+
+.md-sidenav-left .nav-footer .copyright {
+    margin: 0;
+}
+
+.md-sidenav-left .nav-footer a {
+    color: #0277bb;
+    text-decoration: none;
+    -webkit-transition: color 0.1s linear;
+    -moz-transition: color 0.1s linear;
+    transition: color 0.1s linear;
+}
+
+.md-sidenav-left  .nav-footer a:hover {
+    color: #01476f;
+}
+
+
+
+/*======= Calendar Page =======*/
+
+
+/******* Top toolbar *******/
+
+.sideMenuTriggerIcon svg {
+	fill: #fff;
+}
+
+button#goToCurrentPeriod {
+	height: 36px;
+	margin: 14px;
+}
+
+.periodSelectorContainer {
+    min-width: 230px;
+    max-width: 230px;
+}
+
+.periodSelectorContainer .periodSelectorPeriod {
+	text-transform: uppercase;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.periodSelectorContainer .md-icon-button svg {
+	fill: #fff;
+}
+
+.layoutSelectorContainer {
+    margin: 0 calc(50% - 445px);
+}
+
+.layoutSelectorContainer .layoutSelectorItem {
+	text-align: center;
+	font-size: 12px;
+	font-weight: 500;
+	cursor: pointer;
+	display: inline-block;
+	margin: 0 4px;
+}
+
+.layoutSelectorContainer .layoutSelectorItem:not(.layoutActive) {
+	opacity: .3;
+}
+
+.layoutSelectorContainer .layoutSelectorItem.layoutActive {
+	opacity: 1;
+}
+
+.layoutSelectorContainer .layoutSelectorItem.layoutActive svg {
+	fill: rgb(255,215,64);
+}
+
+.layoutSelectorContainer .layoutSelectorItem svg {
+	fill: rgb(255, 255, 255);
+}
+
+
+/******* FAB *******/
+
+.newPublicationFab {
+	position: absolute;
+	bottom: 22px;
+	right: 22px;
+}
+
+
+/******* Filter bar *******/
+
+.calendarFilterContainer{
+    background: white;
+    height: 64px;
+    z-index: 1;
+    padding-top: 128px;
+}
+
+.calendarFilterContainer .calFilterCaption {
+    float: left;
+    height: 64px;
+    line-height: 64px;
+    padding-left: 15px;
+    padding-right: 10px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #333;
+}
+
+.calendarFilterContainer .checkboxFilterContainer {
+    float: left;
+    height: 38px;
+    padding: 9px;
+    box-sizing: border-box;
+    border-radius: 3px;
+    margin-top: 12px;
+    margin-left: 15px;
+    color: #9a9a9a;
+    font-weight: 500;
+}
+
+
+/******* Calendar Grid  *******/
+
+.calendarMonthGridContainer {
+    height: calc(100% - 192px);
+	box-sizing: border-box;
+}
+
+.calendarMonthGridContainer .monthRow {
+    height: calc((100% / 6) - 1px);
+	border-top: 1px solid #ddd;
+}
+
+.calendarMonthGridContainer .monthRow .monthDay {
+    background: none;
+    height: 100%;
+    width: calc((100% / 7));
+    float: left;
+    border-right: 1px solid #ddd;
+    margin-left: -1px;
+}
+
+.calendarMonthGridContainer .monthRow .monthDay.lastGridSegment {
+    border-right: none;
+}
+
+.calendarMonthGridContainer .monthRow .monthDay.todaySegment time {
+    color: #607d8b;
+    font-weight: 600;
+}
+
+.calendarMonthGridContainer .monthRow .monthDay.todaySegment {
+    background: #f5f5f5;
+    border: 0;
+    border-left: 1px solid #dddddd;
+    border-right: 1px solid #dddddd;
+    width: calc((100% / 7) - 1px);
+}
+
+.calendarMonthGridContainer .monthRow .monthDay strong {
+    margin: 6px 6px 0px 4px;
+    opacity: .72;
+}
+
+.calendarMonthGridContainer .monthRow .monthDay strong.pastEvent {
+    opacity: .28;
+}
+
+/* Calendar grid - Days */
+
+.calendarMonthGridContainer .monthRow .monthDay span.weekDay {
+	float: right;
+    padding: 6px 8px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #607d8b;
+}
+
+.calendarMonthGridContainer .monthRow .monthDay time {
+    padding: 6px 8px;
+    display: inline-block;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.calendarMonthGridContainer .monthRow .monthDay time.notThisMonth {
+    opacity: .3;
+}
+
+
+/* Calendar grid -> Days -> Content */
+
+.facebookBackgroundColor {
+	background: #3b5998 !important;
+}
+
+.twitterBackgroundColor {
+	background: #5dd7fc !important;
+}
+
+.googleBackgroundColor {
+	background: #db4437 !important;
+}
+
+.instagramBackgroundColor {
+	background: #ff1f99 !important;
+}
+
+.socialEventTagWeek.pastPublicationColor {
+	background: #dddddd !important;
+}
+
+span.socilaIconsContrainer {
+	display: flex;
+}
+
+md-icon.socialIcon {
+	border-radius: 50%;
+	padding: 6px;
+	height: 12px;
+	width: 12px;
+	margin: 2px 0 2px 6px;
+	cursor: pointer;
+	background: #ddd;
+	min-height: initial;
+	min-width: initial;
+	outline: none;
+}
+
+md-icon.socialIcon.twitterBackgroundColor:hover,
+md-icon.socialIcon.facebookBackgroundColor:hover,
+md-icon.socialIcon.instagramBackgroundColor:hover {
+	opacity: .8;
+    cursor: pointer;
+}
+
+
+/* Calendar grid week view */
+
+.calendarWeekGridContainer,
+.calendarDayGridContainer {
+	height: calc(100% - 192px);
+    box-sizing: border-box;
+}
+
+.calendarWeekGridContainer .weekRow {
+    height: calc(100% /6);
+}
+
+.calendarWeekGridContainer .weekRow:nth-child(even) {
+    background-color: #fefefe;
+}
+
+.calendarWeekGridContainer .weekRow:nth-child(1) {
+    border-top: 1px solid #ddd;
+	height: calc((100% /6) - 1px);
+}
+
+.calendarWeekGridContainer .weekDay {
+    background: none;
+    height: 100%;
+    width: calc((100% / 7));
+    float: left;
+    border-right: 1px solid #ddd;
+    margin-left: -1px;
+}
+
+.calendarWeekGridContainer .weekDay .weekDayName {
+	float: right;
+    padding: 6px 8px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #607d8b;
+}
+
+.calendarWeekGridContainer .weekDay .weekDayName.weekDayNameToday {
+    font-size: 28px;
+    font-weight: 400;
+}
+
+.calendarWeekGridContainer .weekDay .weekDayHour,
+.calendarDayGridContainer .dayHour .dayDayHour {
+	float: left;
+    padding: 6px 8px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #bec7cc;
+}
+
+.calendarWeekGridContainer .weekDay.todaySegment {
+    background: #f5f5f5;
+    border: 0;
+    border-left: 1px solid #dddddd;
+    border-right: 1px solid #dddddd;
+    width: calc((100% / 7) - 1px);
+}
+
+.socilaIconsContrainerWeek {
+	width: 100%;
+	float: left;
+	margin-top: 6px;
+}
+
+.socialEventTagWeek:not(.pastPublicationColor):hover {
+    /*box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);*/
+    cursor: pointer;
+    opacity: .8;
+}
+
+.socialEventTagWeek {
+    background: #5dd7fc;
+    border-radius: 20px;
+    margin: 0 8px;
+    height: 24px;
+    margin-bottom: 6px;
+    position: relative;
+    overflow: hidden;
+    width: calc(100% - 16px);
+	/*-webkit-transition: all 200ms ease-in-out;
+	-moz-transition: all 200ms ease-in-out;
+	-ms-transition: all 200ms ease-in-out;
+	-o-transition: all 200ms ease-in-out;
+	transition: all 200ms ease-in-out;*/
+}
+
+.socialEventTagWeek md-icon.socialIcon:hover {
+    opacity: 1;
+}
+
+.socialEventTagWeek:after {
+    content: "";
+    text-align: right;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 32px;
+    height: 24px;
+    background: linear-gradient(to right, rgba(255, 255, 255, 0), rgb(93, 215, 252) 50%);
+    border-bottom-right-radius: 20px;
+    border-top-right-radius: 20px;
+}
+
+.socialEventTagWeek.facebookBackgroundColor:after {
+    background: linear-gradient(to right, rgba(255, 255, 255, 0), rgb(59, 89, 152) 50%);
+}
+
+.socialEventTagWeek.googleBackgroundColor:after {
+    background: linear-gradient(to right, rgba(255, 255, 255, 0), rgb(219, 68, 55) 50%);
+}
+
+.socialEventTagWeek.instagramBackgroundColor:after {
+    background: linear-gradient(to right, rgba(255, 255, 255, 0), rgb(255, 31, 153) 50%);
+}
+
+.socialEventTagWeek.pastPublicationColor:after {
+    background: linear-gradient(to right, rgba(255, 255, 255, 0), rgb(221, 221, 221) 50%) !important;
+}
+
+.instagramBackgroundColor svg g {
+	fill: #fff;
+}
+
+.socilaIconsContrainerWeek md-icon {
+    margin: 0 2px;
+    background: none;
+    position: absolute;
+}
+
+.socialEventTagWeekDesc {
+    line-height: 24px;
+    padding-left: 28px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #fff;
+}
+
+
+/* Calendar day view grid */
+
+.calendarDayGridContainer .dayHour {
+    background: none;
+    height: 100%;
+    width: calc((100% / 4) - 1px);
+    float: left;
+    border-right: 1px solid #ddd;
+}
+
+.calendarDayGridContainer .dayRow {
+    height: calc(100% /6);
+}
+
+.calendarDayGridContainer .dayRow:nth-child(1) {
+    border-top: 1px solid #ddd;
+	height: calc((100% /6) - 1px);
+}
+
+.calendarDayGridContainer .dayRow:nth-child(even) {
+    background-color: #fefefe;
+}
+
+.socialEventTagDay {
+    background: #5dd7fc;
+    border-radius: 20px;
+    margin: 0px 8px;
+    height: 24px;
+    margin-bottom: 6px;
+    position: relative;
+    overflow: hidden;
+    width: calc(100% - 16px);
+}
+
+.socialEventTagWeekDayTime {
+	line-height: 24px;
+    padding-left: 28px;
+    font-size: 14px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.84);
+    position: absolute;
+    right: 12px;
+}
+
+
+/* Calendar content modal */
+
+.md-dialog-container .postDetailsModal {
+    min-height: 120px;
+    width: 540px;
+    display: inline-flex;
+    flex-direction: row;
+    padding-bottom: 15px;
+}
+
+.postDetailsModal md-icon.socialIcon {
+    border-radius: 0;
+    padding: 10px;
+    height: 24px;
+    width: 24px;
+    margin: 6px;
+    cursor: default;
+    background: none;
+    min-height: initial;
+    min-width: initial;
+}
+
+.postDetailsModal md-icon.socialIcon:hover {
+    opacity: 1;
+}
+
+.previewSocialIconContainer {
+	width: 55px;
+	height: 100%;
+}
+
+.postDetailsPreviewContent {
+	width: calc(100% - 55px);
+	height: 100%;
+}
+
+.postDetailsPreviewContent h1 {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 400;
+    padding-top: 15px;
+}
+
+.postDetailsPreviewContent .tbpContentPreviewInfo {
+	margin-top: 10px;
+    margin-bottom: 20px;
+    font-size: 14px;
+}
+
+.postDetailsPreviewContent time {
+	font-weight: 400;
+	font-size: 14px;
+	color: #aaa;
+}
+
+.postDetailsPreviewContent time span {
+    color: #ffd740;
+    text-transform: uppercase;
+    font-weight: 600;
+    padding: 0 2px;
+}
+
+.postDetailsPreviewContent time span sup {
+	text-transform: lowercase;
+    font-weight: 500;
+}
+
+
+/*======= Publisher Page =======*/
+
+
+/******* Content Cards *******/
+
+.contentCardContainer {
+    margin: 0 0 15px 15px;
+}
+
+.contentCardContainer md-card {
+	float: left;
+	width: calc(25% - 20px);
+	height: 185px;
+	min-width: 420px;
+}
+
+.md-subhead .contentCardInfoHglt {
+	color: #bbb;
+    font-weight: 500;
+}
+
+.contentCardContainer h2.contCardsTitle {
+    font-size: 16px;
+    font-weight: 500;
+    width: calc(100% - 32px);
+    margin-left: 8px;
+    line-height: 55px;
+    position: relative;
+    padding-left: 8px;
+    margin-bottom: 0;
+    float: left;
+	margin-top: 15px;
+}
+
+.contentCardContainer h2.contCardsTitle .md-button.md-icon-button {
+    position: absolute;
+    top: 8px;
+    margin-left: 10px;
+}
+
+
+.contentCardContainer md-card[type=titleOnly],
+.contentCardContainer md-card[type=titleAndImage],
+.contentCardContainer md-card[type=imageOnly] {
+	position: relative;
+}
+
+.contentCardContainer md-card .contentCardTitle {
+    font-size: 22px;
+    font-weight: 400;
+    line-height: 32px;
+    padding: 18px;
+    padding-bottom: 0;
+}
+
+.contentCardContainer md-card .md-subhead {
+	padding: 8px 18px;
+    font-size: 14px;
+}
+
+.contentCardContainer md-card md-card-actions {
+    position: absolute;
+    bottom: 0;
+	right: 0;
+}
+
+.contentCardContainer md-card .contentCardLeftSmallImgContainer {
+    width: 64px;
+    left: 18px;
+    position: absolute;
+    top: 18px;
+}
+
+.contentCardContainer md-card .contentCardLeftSmallImgContainer img {
+    width: 64px;
+}
+
+.contentCardContainer md-card .contentCardLargeRightContentContainer {
+    width: calc(100% - 82px);
+    right: 0;
+    position: absolute;
+    height: 100%;
+}
+
+.contentCardContainer md-card .contentCardLeftLargeImgContainer {
+    width: 115px;
+    height: 115px;
+    left: 18px;
+    position: absolute;
+    top: 18px;
+}
+
+.contentCardContainer md-card .contentCardLeftLargeImgContainer img {
+    width: 115px;
+}
+
+.contentCardContainer md-card .contentCardSmallRightContentContainer {
+	width: calc(100% - 133px);
+    right: 0;
+    position: absolute;
+    height: 100%;
+}
+
+.contentCardContainer md-card .contentCardSmallRightContentContainer .md-subhead:first-child  {
+    padding-top: 18px;
+    padding-bottom: 0;
+}
+
+.contentCardContainer md-card .contentCardSmallRightContentContainer .md-subhead:last-child  {
+    padding-top: 4px;
+}
+
+.contentCardContainer md-card:last-child {
+    margin-bottom: 23px;
+}
+
+
+
+/* Search */
+
+.searchFieldWrapper {
+    width: 620px;
+    margin: 10px 33%;
+    position: absolute;
+	top: 0;
+    box-shadow: 0 1px 8px 0 rgba(0, 0, 0, 0.14);
+    background: #fff;
+    height: 43px;
+    border-radius: 2px;
+    -webkit-transition: all 0.2s ease-in-out;
+    -moz-transition: all 0.2s ease-in-out;
+    -ms-transition: all 0.2s ease-in-out;
+    -o-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+}
+
+.searchFieldWrapper .md-icon-button {
+    position: absolute;
+    right: 0;
+    height: 43px;
+    top: 0;
+    line-height: 40px;
+}
+
+.rotateButArrow {
+	-moz-transform: rotate(180deg);
+	-webkit-transform: rotate(180deg);
+	-o-transform: rotate(180deg);
+	-ms-transform: rotate(180deg);
+	transform: rotate(180deg);
+	margin-top: -1px;
+}
+
+.searchFieldWrapper .searchicon {
+    position: absolute;
+    top: 0;
+    left: 15px;
+    line-height: 40px;
+}
+
+.moreSearchOptionsContainer {
+	display: none;
+	box-sizing: border-box;
+    color: rgba(0, 0, 0, 0.87);
+    font-size: 16px;
+}
+
+.moreSearchOptionsContainer md-checkbox {
+	margin-left: 20px;
+    margin-top: 20px;
+}
+
+.searchFieldWrapper .searchicon md-icon svg {
+    fill: #bbb
+}
+
+.searchFieldWrapper .searchFieldInput {
+    color: #6d6d6d;
+    border: none;
+    outline: none;
+    padding-bottom: 13px;
+    padding-top: 11px;
+    width: 100%;
+    border-radius: 2px;
+    font-size: 16px;
+    display: block;
+    padding-left: 45px;
+    -webkit-transition: all 0.2s ease-in-out;
+    -moz-transition: all 0.2s ease-in-out;
+    -ms-transition: all 0.2s ease-in-out;
+    -o-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+    background: #fff;
+	border-bottom-color: #eee;
+}
+
+.settingsTopBarIconBut md-icon svg {
+    fill: #fff;
+}
+
+.settingsTopBarIconBut {
+	right: 16px;
+	position: absolute;
+	top: 12px;
+}
+
+
+/* New publication modal (Stepper)*/
+
+.md-dialog-container .publishModal {
+    min-height: 640px;
+    width: 780px;
+}
+
+.topStepperBarContainer {
+	height: 72px;
+	width: 100%;
+	box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 2px 1px -1px rgba(0, 0, 0, 0.12);
+	position: relative;
+}
+
+.stepOneContainer {
+	background: #fff;
+    height: 100%;
+    display: inline-block;
+	position: absolute;
+}
+
+.stepTwoContainer {
+    background: #fff;
+    height: 100%;
+    display: inline-block;
+    position: absolute;
+    left: 44%;
+}
+
+.stepThreeContainer {
+	background: #fff;
+    height: 100%;
+    display: inline-block;
+	position: absolute;
+    right: 0;
+}
+
+.stepOneContainer .stepNumber,
+.stepTwoContainer .stepNumber,
+.stepThreeContainer .stepNumber,
+.stepNumberComplete {
+	display: inline-block;
+	background: #9b9b9b;
+	height: 24px;
+	width: 24px;
+	border-radius: 50%;
+	text-align: center;
+	line-height: 24px;
+	margin-top: 24px;
+	margin-bottom: 24px;
+	margin-left: 24px;
+	color: #fff;
+	font-weight: 400;
+	font-size: 12px;
+}
+
+.stepActive .stepNumber,
+.stepNumberComplete {
+	background: rgb(255,215,64);
+}
+
+.stepNumberComplete md-icon {
+	min-height: 18px;
+    min-width: 18px;
+    height: 18px;
+    width: 18px;
+    margin-top: -1px;
+}
+
+.stepActive .stepName,
+.stepCompleted .stepName {
+	color: initial !important;
+}
+
+.stepTwoContainer .stepNumber,
+.stepThreeContainer .stepNumber,
+.stepTwoContainer .stepNumberComplete,
+.stepThreeContainer .stepNumberComplete {
+	margin-left: 8px;
+}
+
+.stepOneContainer .stepName,
+.stepTwoContainer .stepName,
+.stepThreeContainer .stepName {
+    display: inline-block;
+    font-size: 14px;
+    font-weight: 500;
+    margin-left: 4px;
+    margin-right: 8px;
+	color: rgba(0,0,0,0.54);
+}
+
+.stepThreeContainer .stepName {
+    margin-right: 24px;
+}
+
+.stepperLine {
+	background: #e0e0e0;
+    height: 1px;
+    width: 100%;
+    position: absolute;
+    top: 36px;
+}
+
+/* Step 1 container */
+
+.stepContainer h3 {
+	font-size: 14px;
+    color: rgba(0,0,0,0.54);
+    font-weight: 500;
+	padding: 8px 15px 5px 20px;
+}
+
+.stepContainer md-card-actions {
+	position: absolute;
+	bottom: 8px;
+	right: 8px;
+	width: calc(100% - 16px);
+}
+
+.stepContainer md-card-actions .stepperLeftButton {
+	position: absolute;
+	left: 0;
+	bottom: 0;
+}
+
+.stepContainer md-card-actions .md-button.md-primary {
+	color: #4285f4;
+}
+
+.socialSelect {
+    background: #fbfbfb;
+    float: left;
+    padding: 24px;
+    border-radius: 3px;
+    text-align: center;
+    margin-left: 18px;
+    width: 124px;
+    margin-bottom: 18px;
+    box-shadow: rgba(0,0,0,0.2) 0px 1px 2px 0px;
+    -webkit-transition: all 0.1s ease-in-out;
+    -moz-transition: all 0.1s ease-in-out;
+    -ms-transition: all 0.1s ease-in-out;
+    -o-transition: all 0.1s ease-in-out;
+    transition: all 0.1s ease-in-out;
+}
+
+.socialSelectFaded {
+	opacity: .3;
+}
+
+.socialSelectFaded:hover {
+	opacity: 1;
+}
+
+.socialSelect:hover {
+	box-shadow: 0 1px 16px 0 rgba(0, 0, 0, 0.16);
+	cursor: pointer;
+}
+
+.socialSelect .socialSelectLogo {
+	width: 52px;
+}
+
+.socialSelect .socialSelectName {
+	padding-top: 12px;
+	font-size: 14px;
+	font-weight: 500;
+	color: rgba(0,0,0,0.54);
+}
+
+.socialSelect.newAccount {
+    height: 72px;
+    width: 72px;
+    background: #fff;
+    border: 2px dashed #bbb;
+    box-sizing: border-box;
+    box-shadow: none;
+    position: relative;
+    border-radius: 50%;
+    top: 29px;
+    left: 44px;
+}
+
+.socialSelect.socialSelectFaded.newAccount {
+	opacity: 1;
+}
+
+.socialSelect.newAccount:hover {
+	opacity: .7
+}
+
+.socialSelect.newAccount md-icon {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 32px;
+    height: 32px;
+}
+
+.socialSelect.newAccount md-icon svg {
+    fill: #bbb;
+}
+
+
+/* Step 1 container */
+
+.tbpUrlContainer {
+    margin: 20px;
+    margin-top: 38px;
+    margin-bottom: 0;
+}
+
+.tbpWidgetContainer {
+	margin: 20px;
+}
+
+.tbpUrlContainer .tbpContentUrlTitle,
+.tbpHashtagsContainer .tbpTagCloudTitle,
+.tbpWidgetContainer .tbpWidgetContainerTitle {
+    font-size: 13px;
+    color: rgba(0,0,0,0.54);
+    font-weight: 400;
+    padding: 8px 20px 6px 20px;
+}
+
+.tbpUrlContainer .tbpContentUrl {
+	background: #eaeaea;
+	margin: 0 20px;
+	padding: 5px 10px;
+	border-radius: 3px;
+	border: 1px dotted #bbb;
+	font-size: 16px;
+	font-weight: 500;
+	color: #b9b9b9;
+}
+
+.tbpWidgetContainer .tbpWidgetContentLinkPreview {
+	height: 130px;
+    border-radius: 6px;
+    border: 1px solid #bbb;
+}
+
+.tbpWidgetContentLinkPreview img {
+	height: 130px;
+    border-bottom-left-radius: 5px;
+    border-top-left-radius: 5px;
+    position: absolute;
+}
+
+.tbpWidgetContentLinkPreview .tbpLinkPrevTitle {
+	margin-left: 145px;
+    margin-top: 12px;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.tbpWidgetContentLinkPreview .tbpLinkPrevDesc {
+	margin-left: 145px;
+    margin-top: 5px;
+    font-size: 16px;
+	padding-right: 20px;
+}
+
+.tbpWidgetContentLinkPreview .tbpLinkPrevLink {
+	margin-left: 145px;
+    margin-top: 5px;
+    color: #b1b1b1;
+    font-weight: 400;
+    font-size: 14px;
+}
+
+.tbpTagCloudContainer {
+	background: #ffffff;
+	height: 94px;
+	margin: 0 15px;
+}
+
+.tbpTagCloudContainer span {
+    background: #607D8B;
+    padding: 6px 12px;
+    border-radius: 22px;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 400;
+    display: inline-block;
+    margin: 5px 0 0 4px;
+    cursor: pointer;
+}
+
+.tbpTagCloudContainer span:hover {
+	opacity: .7;
+}
+
+
+/**/
+
+.publisherModalTimerSelectContainer {
+	padding: 15px;
+	height: 72px;
+	text-align: center;
+}
+
+.publisherModalTimerSelectContainer mdp-date-picker, 
+.publisherModalTimerSelectContainer mdp-time-picker {
+	display: inline-flex;
+	padding: 0 15px;
+}
+
+.publisherModalTimerSelectContainer mdp-date-picker label, 
+.publisherModalTimerSelectContainer mdp-time-picker label {
+    text-align: left;
+}
+
+.publisherModalTimerNowContainer {
+    padding: 20px;
+}
+
+.publisherModalTimerNowContainer button {
+    padding: 0 15px;
+}
+
+
+/* Time & Date picker overide */
+
+.mdp-timepicker:not(.portrait) .mdp-timepicker-time {
+    width: initial !important;
+}
+
+.mdp-timepicker .mdp-timepicker-time {
+    padding: 24px !important;
+}
+
+.mdp-clock .mdp-pointer {
+    width: 2px !important;
+}
+
+.mdp-timepicker .mdp-timepicker-selected-ampm {
+	font-size: 16px;
+    line-height: 24px;
+}
+
+.mdp-datepicker:not(.portrait) .mdp-calendar {
+    margin-top: 6px;
+}
+
+
+/**/
+
+.tabLabelsContainer button {
+    height: 48px;
+    margin-top: 16px;
+    margin-bottom: 0;
+    border-radius: 0;
+    line-height: 48px;
+    padding-left: 24px;
+    padding-right: 24px;
+    margin-left: 0;
+    margin-right: 0;
+    min-width: initial;
+}
+
+.tabLabelsContainer button.md-focused,
+.tabLabelsContainer button.md-button .md-ripple-container {
+    border-radius: 0;
+}
+
+.tabLabelsContainer button span {
+	color: rgba(0,0,0,0.52);
+}
+
+.tabLabelsContainer button.activeTabLabel span {
+	color: initial;
+}
+
+.tabLabelsContainer button:nth-child(2) {
+	margin-left: 30px;
+}
+
+.tabLabelsContainer button:hover {
+	background-color: transparent !important;
+}
+
+.tabLabelsContainer .tabLabelItemIndicBar {
+	background: #ffd740;
+    height: 2px;
+    width: 141px;
+    position: absolute;
+    bottom: 0;
+    left: 30px;
+    -webkit-transition: all 150ms ease-in-out;
+    -moz-transition: all 150ms ease-in-out;
+    -ms-transition: all 150ms ease-in-out;
+    -o-transition: all 150ms ease-in-out;
+    transition: all 150ms ease-in-out;
+}
+
+
+
+
+/**/
+
+
+.tabs {
+    z-index: 15px;
+    position: relative;
+    background: #fafafa;
+    width: 100%;
+    box-sizing: border-box;
+    overflow: hidden;	
+}
+
+.tabs.fixedHeader {
+	position: absolute;
+    top: 64px;
+}
+
+.tabs-header {
+	position: relative;
+    background: #607D8B;
+    overflow: hidden;
+    padding-top: 15px;
+    box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 2px 1px -1px rgba(0, 0, 0, 0.12);
+}
+
+.tabs-header .border {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  background: rgb(255,215,64);
+  width: auto;
+  height: 3px;
+  -webkit-transition: 0.3s ease;
+  transition: 0.3s ease;
+}
+
+.tabs-header ul {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  width: calc(100% - 68px);
+margin: 0;
+  }
+
+.tabs-header li {
+  -webkit-transition: 0.3s ease;
+  transition: 0.3s ease;
+}
+
+.tabs-header a {
+    z-index: 1;
+    display: block;
+    box-sizing: border-box;
+    padding: 15px 20px;
+    color: #fff;
+    font-weight: 500;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 14px;
+    letter-spacing: 0.010em;
+}
+
+.tabs-nav {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: #4285F4;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  height: 100%;
+  padding: 0 10px;
+  color: #FFFFFF;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.tabs-nav:before {
+  content: '';
+  z-index: 1;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  box-shadow: 0 0 20px 10px #4285F4;
+}
+
+.tabs-nav i {
+  border-radius: 100%;
+  cursor: pointer;
+}
+
+.tabs-content {
+  position: relative;
+  padding: 0;
+  -webkit-transition: 0.3s ease;
+  transition: 0.3s ease;
+  overflow: hidden;
+      height: 100% !important;
+}
+
+.tabs-content .tab { display: none; }
+
+.tabs-content .tab.active { display: block; }
+
+
+/* Tabs ripple*/
+
+[ripple] {
+ z-index: 1;
+ position: relative;
+ overflow: hidden;
+}
+
+[ripple] .ripple {
+  position: absolute;
+  background: #FFFFFF;
+  width: 12px;
+  height: 12px;
+  border-radius: 100%;
+  -webkit-animation: ripple 1.6s;
+  animation: ripple 1.6s;
+}
+
+@-webkit-keyframes 
+ripple {  0% {
+ -webkit-transform: scale(1);
+ transform: scale(1);
+ opacity: 0.2;
+}
+ 100% {
+ -webkit-transform: scale(40);
+ transform: scale(40);
+ opacity: 0;
+}
+}
+
+@keyframes 
+ripple {  0% {
+ -webkit-transform: scale(1);
+ transform: scale(1);
+ opacity: 0.2;
+}
+ 100% {
+ -webkit-transform: scale(40);
+ transform: scale(40);
+ opacity: 0;
+}
+}
+
+
+
+/***********************************************************/
+
+.accountsSettingsMainSection {
+    margin: 23px;
+}
+
+.accountsSettingsMainSection .accountsListContainer {
+	background: #fff;
+	max-width: 1080px;
+	margin: 0 auto;
+	padding: 5px;
+	border-radius: 2px;
+	min-height: 64px;
+    box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 2px 1px -1px rgba(0, 0, 0, 0.12);
+	margin-bottom: 23px;
+}
+
+
+.accountListSeparator {
+	height: 1px;
+	background: #ebebeb;
+	margin: 5px;
+}
+
+.accountDisp {
+	background: #fff;
+	height: 72px;
+	max-width: 1080px;
+	position: relative;
+	padding: 5px;
+	box-sizing: border-box;
+	-webkit-transition: all 200ms ease-in-out;
+    -moz-transition: all 200ms ease-in-out;
+    -ms-transition: all 200ms ease-in-out;
+    -o-transition: all 200ms ease-in-out;
+    transition: all 200ms ease-in-out;
+}
+
+.accountDisp:last-child {
+	border-bottom: none;
+}
+
+.accountDisp .accountColorBar,
+.accountDisp .accountImgs,
+.accountDisp .accountNames {
+	float: left;
+}
+
+.accountDisp .accountColorBar {
+	background: #5dd7fc;
+	height: 62px;
+	width: 5px;
+	margin-right: 5px;
+	border-radius: 4px;
+	-webkit-transition: all 200ms ease-in-out;
+    -moz-transition: all 200ms ease-in-out;
+    -ms-transition: all 200ms ease-in-out;
+    -o-transition: all 200ms ease-in-out;
+    transition: all 200ms ease-in-out;
+}
+
+.accountDisp .accountImgs {
+	height: 62px;
+	width: 62px;
+	position: relative;
+}
+
+.accountDisp .accountNames {
+	height: 42px;
+	margin-left: 15px;
+	margin-top: 10px;
+}
+
+.accountDisp .accountActionsContainer {
+	position: absolute;
+	right: 15px;
+	top: 15px;
+}
+
+.accountDisp .accountActionsContainer md-icon svg {
+    fill: rgba(0,0,0,0.54);
+}
+
+.accountDisp .accountImgs .accountProfilePicture {
+	border-radius: 50px;
+	height: 52px;
+	width: 52px;
+	margin-top: 5px;
+	margin-left: 5px;
+}
+
+.accountDisp .accountNames .accountAccountName {
+	font-size: 16px;
+	font-weight: 500;
+	padding-bottom: 6px;
+}
+
+.accountDisp .accountNames .accountAccountName span {
+	font-size: 16px;
+	font-weight: 400;
+}
+
+.accountDisp .accountNames .accountAccountName strong {
+	font-size: 16px;
+	font-weight: 500;
+	padding: 0 8px;
+}
+
+.accountDisp .accountNames .accountSocialType {
+	font-size: 12px;
+	font-weight: 500;
+	padding-bottom: 4px;
+	text-transform: uppercase;
+	color: #ccc;
+	letter-spacing: .1em;
+}
+
+
+.md-dialog-container#myDialogDelAccount .publishModal {
+    padding: 30px;
+    width: 680px;
+    min-height: initial;
+    box-sizing: border-box;
+}
+
+.accountEditContainer {
+	display: none;
+}
+
+.accountEditCheckboxContainer {
+	position: absolute;
+	padding-left: 16px;
+	margin-top: -8px;
+}
+
+.accountEditContainer md-input-container.md-block {
+    padding-right: 16px;
+    padding-left: 8px;
+    box-sizing: border-box;
+}
+
+.accountEditContainer md-input-container label:not(.md-no-float):not(._md-container-ignore),
+.accountEditContainer md-input-container ._md-placeholder {
+	padding-left: 8px;
+}
+
+.accountDisp .addNewAccountBtn:hover {
+	background-color: #fff;
+}
+
+
+/**/
+
+h2.cardTitleH2 {
+	font-size: 16px;
+    font-weight: 500;
+    color: #999;
+    position: relative;
+    max-width: 1090px;
+    width: 90%;
+    margin: 0 auto;
+    margin-top: 32px;
+    margin-bottom: 16px;
+}
+
+.aboutCard {
+    background: #fff;
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 5px;
+    border-radius: 2px;
+    min-height: 64px;
+    box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 2px 1px -1px rgba(0, 0, 0, 0.12);
+    margin-bottom: 23px;
+}
+
+.aboutCard .aboutCardTitle {
+	font-size: 20px;
+}
+
+.aboutCard .aboutSMVersion {
+    padding: 20px 10px;
+    font-size: 16px;
+    color: #bbb;
+    font-weight: 200;
+}
+
+.aboutCard .aboutConectorsVersion {
+    line-height: 25px;
+    font-size: 14px;
+	padding: 0 10px 15px 10px;
+}
+
+.aboutCard .aboutConectorsVersion .conectorVersion span {
+	color: #bbb;
+}
+
+.advancedSettingsMsg {
+	color: #bbb;
+    text-align: center;
+    margin-top: 22%;
+    font-size: 14px;
+}
+
+.backupAndRestoreWarningTItle {
+	padding: 10px;
+}
+
+.backupAndRestoreButtonsContainer {
+    padding: 10px;
+    position: relative;
+}
+
+.backupAndRestoreButtonsContainer button.md-warn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding: 0 15px;
+    background-color: #f44336 !important;
+}
+
+.md-dialog-container#myDialogDelAccount .unlinkModal {
+    width: 320px;
+}
+
+.md-dialog-container#myDialogDelAccount .unlinkModal .unlinkModalTitle {
+	padding: 24px;
+    font-size: 20px;
+    font-weight: 400;
+    padding-bottom: 20px;
+}
+
+.md-dialog-container#myDialogDelAccount .unlinkModal .unlinkModalSubtitle {
+    padding: 0 24px 24px 24px;
+    font-size: 16px;
+    color: rgba(0,0,0,0.52);
+}
+
+.addNewAccountModal {
+	width: 420px;
+}
+
+.addNewAccountModalContainer {
+	padding: 24px;
+}
+
+.addNewAccountModalContainer .addAccountModalTitle {
+	font-size: 20px;
+    font-weight: 400;
+    padding-bottom: 20px;
+}
+
+
+
+/**/
+
+.warningOverlay {
+	background: #607d8b;
+	position: fixed;
+	height: 100%;
+	width: 100%;
+	z-index: 9;
+}
+
+.warningOverlay .warnCenterContainer {
+    height: 310px;
+    width: 290px;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    text-align: center;
+}
+
+.warningOverlay .warnCenterContainer  md-icon {
+	height: 48px;
+	width: 48px;
+}
+
+.warningOverlay .warnCenterContainer  button {
+    padding: 0 14px;
+}
+
+.warningOverlay .warnCenterContainer p {
+    color: #fff;
+    margin-top: 28px;
+    margin-bottom: 38px;
+    font-size: 16px;
+    line-height: 22px;
+}
+
+
+/**/
+
+.accountConfigMainContainer .apiConfigCard {
+	background: #fff;
+    max-width: 1080px;
+    margin: 0 auto;
+    border-radius: 2px;
+    min-height: 64px;
+    box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 2px 1px -1px rgba(0, 0, 0, 0.12);
+    margin-bottom: 23px;
+    padding: 5px;
+}
+
+
+/**/
+
+.dashboardUnderConstruction {
+	text-align: center;
+	margin-top: 24%;
+	font-size: 14px;
+	color: #bbb;
+}

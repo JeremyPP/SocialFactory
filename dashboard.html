@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+		<link rel="stylesheet" href="css/angular-material.css">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700">
+
+		<link rel="stylesheet" href="css/main.css">
+	</head>
+
+	<body ng-app="sfApp" class="" ng-controller="mainSettingsCtrl">
+	
+		<div id="pageloader">
+			<svg class="spinner" width="65px" height="65px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg"><circle class="circle" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle></svg>
+		</div>
+		
+		<div ng-controller="ToolbarCtrl" class="mainToolbarContainer" md-whiteframe="1">
+		
+			<!-- Main toolbar -->
+			<md-toolbar>
+				<div class="md-toolbar-tools">
+					<md-button class="md-icon-button" aria-label="Settings" ng-click="toggleLeft()">
+						<md-icon md-svg-icon="img/icons/menu.svg" class="sideMenuTriggerIcon"></md-icon>
+					</md-button>
+					<h2>
+						<span>Dashboard</span>
+					</h2>
+				</div>
+			</md-toolbar>
+		</div>
+		
+		<!-- Sidebar -->
+		<nav ng-controller="LeftNavbarCtrl">
+			<md-sidenav class="md-sidenav-left" md-component-id="leftNavbar" md-whiteframe="4" style="width: 240px;">
+				<md-content style="height: 100%;">
+				
+					<span class="nav-logo">
+						<img src="img/jahia_logo.svg" alt="Logo">
+					</span>
+
+					<nav>
+						<dl>
+							<dt onclick="window.location.href = 'calendar.html'">Calendar</dt>
+							<dt onclick="window.location.href = 'publisher.html'">Content Manager</dt>
+							<dt class="nav-active">Dashboard</dt>
+							<dt onclick="window.location.href = 'settings.html'">Settings</dt>
+						</dl>
+					</nav>
+					<div class="nav-footer">
+						<p class="copyright">Jahia Solutions ©</p>
+						<a href="#">Privacy</a> &amp; <a href="#">Terms</a>
+					</div>
+				
+				</md-content>
+			</md-sidenav>
+		</nav>
+		
+		<div class="dashboardUnderConstruction">This page is still under development and it's not available yet.<br>Please come back soon! :)</div>
+
+		<!-- JS imports -->
+		<script src="js/jquery.min.js" type="text/javascript"></script>
+		
+		<script src="js/angular.js" type="text/javascript"></script>
+		<script src="js/angular-animate.min.js" type="text/javascript"></script>
+		<script src="js/angular-route.min.js" type="text/javascript"></script>
+		<script src="js/angular-aria.min.js" type="text/javascript"></script>
+		<script src="js/angular-messages.min.js" type="text/javascript"></script>
+		<script src="js/angular-material.js" type="text/javascript"></script>
+		
+		<script src="js/moment.min.js" type="text/javascript"></script>
+		<script src="js/mdPickers.min.js" type="text/javascript"></script>
+	
+		<script src="js/main.js" type="text/javascript"></script>
+		
+		<script>
+			// Wait for window load
+			$(window).load(function() {
+			
+				setTimeout(function(){
+					$("#pageloader").fadeOut('fast');
+				}, 500);
+			});
+		</script>
+
+	</body>
+</html>

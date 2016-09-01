@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+		<link rel="stylesheet" href="css/angular-material.css">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700">
+
+		<link rel="stylesheet" href="css/main.css">
+	</head>
+
+	<body ng-app="sfApp" class="" ng-controller="accountConfigCtrl">
+	
+		<div id="pageloader">
+			<svg class="spinner" width="65px" height="65px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg"><circle class="circle" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle></svg>
+		</div>
+		
+		<div class="warningOverlay">
+			<div class="warnCenterContainer">
+				<md-icon md-svg-icon="img/icons/ic_warning_white_48px.svg" class=""></md-icon>
+				<p>Changes made on this page will affect all linked accounts of this type.<br><br>
+				By continuing you understand that unwanted changes can result in loss of data and make the service useless.</p>
+				<md-button class="md-raised md-accent" onClick="$('.warningOverlay').hide()">Continue</md-button>
+			</div>
+		</div>
+		
+		<div ng-controller="ToolbarCtrl" class="mainToolbarContainer" md-whiteframe="1">
+		
+			<!-- Main toolbar -->
+			<md-toolbar>
+				<div class="md-toolbar-tools">
+					<md-button class="md-icon-button" aria-label="Settings" onClick="window.open('settings.html', '_self');">
+						<md-icon md-svg-icon="img/icons/ic_arrow_back_white_48px.svg" class="sideMenuTriggerIcon"></md-icon>
+					</md-button>
+					<h2>
+						<span>Account Configuration</span>
+					</h2>
+				</div>
+			</md-toolbar>
+		</div>
+		
+		<!-- Sidebar -->
+		<nav ng-controller="LeftNavbarCtrl">
+			<md-sidenav class="md-sidenav-left" md-component-id="leftNavbar" md-whiteframe="4">
+				<md-content>
+				
+				</md-content>
+			</md-sidenav>
+		</nav>
+		
+		<div class="tabs">
+			<div class="tabs-header">
+				<div class="border"></div>
+				<ul>
+					<li class="active">
+						<a href="#tab-1" tab-id="1" ripple="ripple" ripple-color="#FFF">Twitter</a>
+					</li>
+					<li>
+						<a href="#tab-2" tab-id="2" ripple="ripple" ripple-color="#FFF">Facebook</a>
+					</li>
+					<li>
+						<a href="#tab-3" tab-id="3" ripple="ripple" ripple-color="#FFF">Instagram</a>
+					</li>
+				</ul>
+			</div>
+			<div class="tabs-content">
+				<div tab-id="1" class="tab active">
+					<section class="accountConfigMainContainer">
+					
+						<h2 class="cardTitleH2">Twitter API</h2>
+						<div class="apiConfigCard">
+							
+						</div>
+					</section>
+				</div>
+				<div tab-id="2" class="tab">
+					<section class="accountConfigMainContainer">
+						<h2 class="cardTitleH2">Facebook API</h2>
+						<div class="apiConfigCard">
+					</section>
+				</div>
+				<div tab-id="3" class="tab">
+					<section class="accountConfigMainContainer">
+						<h2 class="cardTitleH2">Instagram API</h2>
+						<div class="apiConfigCard">
+					</section>
+				</div>
+			</div>
+			</div>
+		</div>
+		
+		<!-- Dialog -->
+		<div style="visibility: hidden">
+			<div class="md-dialog-container" id="myDialogEditAccount">
+				<md-dialog class="publishModal">
+				
+					test
+					
+				</md-dialog>
+			</div>
+		</div>
+
+			
+		<!-- JS imports -->
+		<script src="js/jquery.min.js" type="text/javascript"></script>
+		
+		<script src="js/angular.js" type="text/javascript"></script>
+		<script src="js/angular-animate.min.js" type="text/javascript"></script>
+		<script src="js/angular-route.min.js" type="text/javascript"></script>
+		<script src="js/angular-aria.min.js" type="text/javascript"></script>
+		<script src="js/angular-messages.min.js" type="text/javascript"></script>
+		<script src="js/angular-material.js" type="text/javascript"></script>
+		
+		<script src="js/moment.min.js" type="text/javascript"></script>
+		<script src="js/mdPickers.min.js" type="text/javascript"></script>
+	
+		<script src="js/main.js" type="text/javascript"></script>
+		
+		<script>
+			// Wait for window load
+			$(window).load(function() {
+			
+				setTimeout(function(){
+					$("#pageloader").fadeOut('fast');
+				}, 500);
+			});
+		</script>
+
+	</body>
+</html>

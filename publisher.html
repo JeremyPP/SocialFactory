@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+		<link rel="stylesheet" href="css/angular-material.css">
+		
+		<link rel="stylesheet" href="css/mdPickers.min.css">
+		
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700">
+
+		<link rel="stylesheet" href="css/main.css">
+	</head>
+
+	<body ng-app="sfApp" class="" ng-controller="mainPublisherCtrl">
+	
+		<div id="pageloader">
+			<svg class="spinner" width="65px" height="65px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg"><circle class="circle" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle></svg>
+		</div>
+		
+		<div ng-controller="ToolbarCtrl" class="mainToolbarContainer" md-whiteframe="1">
+		
+			<!-- Main toolbar -->
+			<md-toolbar style="position: fixed;">
+				<div class="md-toolbar-tools fixedHeaderShadowFix">
+					<md-button class="md-icon-button" aria-label="Settings" ng-click="toggleLeft()">
+						<md-icon md-svg-icon="img/icons/menu.svg" class="sideMenuTriggerIcon"></md-icon>
+					</md-button>
+					<h2>
+						<span>Content Manager</span>
+					</h2>
+					
+					<div class="searchFieldWrapper">
+						<div class="searchicon">
+							<md-icon md-svg-icon="img/icons/ic_search_black_36px.svg" class=""></md-icon>
+						</div>
+						
+						<md-button class="md-icon-button" aria-label="ExpandSearch" onCLick="moreSearchOptions()">
+							<md-icon md-svg-icon="img/icons/ic_keyboard_arrow_down_black_36px.svg" class=""></md-icon>
+							<md-tooltip md-direction="left">
+								Search options
+							</md-tooltip>
+						</md-button>
+					
+						<input autofocus type="text" class="searchFieldInput" name="header-search-store" value="" placeholder="Filter content">
+					
+						<div class="moreSearchOptionsContainer">
+						
+							<md-checkbox ng-model="data.cb1" aria-label="Checkbox 1">
+								Show hidden content
+							</md-checkbox>
+						
+						</div>
+					
+					</div>
+					
+					<md-button class="md-icon-button settingsTopBarIconBut" aria-label="Settings">
+						<md-icon md-svg-icon="img/icons/ic_settings_black_36px.svg"></md-icon>
+						<md-tooltip md-direction="left">
+							Settings
+						</md-tooltip>
+					</md-button>
+				</div>
+			</md-toolbar>
+		</div>
+		
+		<!-- Sidebar -->
+		<nav ng-controller="LeftNavbarCtrl">
+			<md-sidenav class="md-sidenav-left" md-component-id="leftNavbar" md-whiteframe="4" style="width: 240px;">
+				<md-content style="height: 100%;">
+				
+					<span class="nav-logo">
+						<img src="img/jahia_logo.svg" alt="Logo">
+					</span>
+					<nav>
+						<dl>
+							<dt onclick="window.location.href = 'calendar.html'">Calendar</dt>
+							<dt class="nav-active">Content Manager</dt>
+							<dt onclick="window.location.href = 'dashboard.html'">Dashboard</dt>
+							<dt onclick="window.location.href = 'settings.html'">Settings</dt>
+						</dl>
+					</nav>
+					<div class="nav-footer">
+						<p class="copyright">Jahia Solutions ©</p>
+						<a href="#">Privacy</a> &amp; <a href="#">Terms</a>
+					</div>
+				
+				</md-content>
+			</md-sidenav>
+		</nav>
+		
+		<div class="tabs fixedHeader">
+			<div class="tabs-header">
+				<div class="border"></div>
+				<ul>
+					<li class="active">
+						<a href="#tab-1" tab-id="1" ripple="ripple" ripple-color="#FFF">All Content</a>
+					</li>
+					<li>
+						<a href="#tab-2" tab-id="2" ripple="ripple" ripple-color="#FFF">Scheduled</a>
+					</li>
+					<li>
+						<a href="#tab-3" tab-id="3" ripple="ripple" ripple-color="#FFF">Published</a>
+					</li>
+				</ul>
+			</div>
+			<div class="tabs-content">
+				<div tab-id="1" class="tab active">
+					<section class="contentCardContainer">
+			
+			<!--<md-card>
+				<md-card-title>
+					<md-card-title-text>
+						<span class="md-headline">Lorem ipsum dolor sit amet, pri volumus fabellas</span>
+						<span class="md-subhead">Author: <span class="contentCardInfoHglt">root</span>&nbsp;&nbsp;|&nbsp;&nbsp;Created: <span class="contentCardInfoHglt">August 8, 13:47</span></span>
+					</md-card-title-text>
+				</md-card-title>
+				<md-card-actions layout="row" layout-align="start center">
+					<md-button>Hide</md-button>
+					<md-button class="md-accent">Publish</md-button>
+				</md-card-actions>
+			</md-card>
+
+			<md-card>
+				<md-card-title>
+					<md-card-title-text>
+						<span class="md-headline">
+							Id mei diam lucilius ut vis alia fugit</span>
+						<span class="md-subhead">Author: <span class="contentCardInfoHglt">Yoda</span>&nbsp;&nbsp;|&nbsp;&nbsp;Created: <span class="contentCardInfoHglt">May 4, 12:21</span></span>
+					</md-card-title-text>
+				</md-card-title>
+				<md-card-actions layout="row" layout-align="start center">
+					<md-button>Hide</md-button>
+					<md-button class="md-accent" ng-click="showPrerenderedDialog($event)">Publish</md-button>
+				</md-card-actions>
+			</md-card>
+
+			<md-card>
+				<md-card-title>
+					<md-card-title-text>
+						<span class="md-headline">Nemore antiopam consetetur eu cum, no mundi intellegat eam</span>
+						<span class="md-subhead">Author: <span class="contentCardInfoHglt">root</span>&nbsp;&nbsp;|&nbsp;&nbsp;Created: <span class="contentCardInfoHglt">August 8, 13:47</span></span>
+					</md-card-title-text>
+				</md-card-title>
+				<md-card-actions layout="row" layout-align="start center">
+					<md-button>Hide</md-button>
+					<md-button class="md-accent">Publish</md-button>
+				</md-card-actions>
+			</md-card>
+
+			<md-card>
+				<md-card-title>
+					<md-card-title-text>
+						<span class="md-headline">Melius scripserit eloquentiam nec eu erat alterum accusam mel at</span>
+						<span class="md-subhead">Author: <span class="contentCardInfoHglt">root</span>&nbsp;&nbsp;|&nbsp;&nbsp;Created: <span class="contentCardInfoHglt">August 8, 13:47</span></span>
+					</md-card-title-text>
+				</md-card-title>
+				<md-card-actions layout="row" layout-align="start center">
+					<md-button>Hide</md-button>
+					<md-button class="md-accent">Publish</md-button>
+				</md-card-actions>
+			</md-card>
+
+			<md-card>
+				<md-card-title>
+					<md-card-title-text>
+						<span class="md-headline">Eos et vero ornatus percipi</span>
+						<span class="md-subhead">Author: <span class="contentCardInfoHglt">root</span>&nbsp;&nbsp;|&nbsp;&nbsp;Created: <span class="contentCardInfoHglt">August 8, 13:47</span></span>
+					</md-card-title-text>
+				</md-card-title>
+				<md-card-actions layout="row" layout-align="start center">
+					<md-button>Hide</md-button>
+					<md-button class="md-accent">Publish</md-button>
+				</md-card-actions>
+			</md-card>-->
+			
+			<md-card type="titleOnly">
+				<div class="contentCardTitle">Lorem ipsum dolor sit amet, consectetur adipiscing</div>
+				<div class="md-subhead">Author: <span class="contentCardInfoHglt">root</span>&nbsp;&nbsp;|&nbsp;&nbsp;Created: <span class="contentCardInfoHglt">August 8, 13:47</span></div>
+				<md-card-actions layout="row" layout-align="start center">
+					<md-button>Hide</md-button>
+					<md-button class="md-accent">Publish</md-button>
+				</md-card-actions>
+			</md-card>
+			
+			<md-card type="titleAndImage">
+				<div class="contentCardLeftSmallImgContainer">
+					<img src="img/articlepreview02.jpg">
+				</div>
+				<div class="contentCardLargeRightContentContainer">
+					<div class="contentCardTitle">Phasellus fermentum varius masellus elit erat, sodales</div>
+					<div class="md-subhead">Author: <span class="contentCardInfoHglt">root</span>&nbsp;&nbsp;|&nbsp;&nbsp;Created: <span class="contentCardInfoHglt">August 8, 13:47</span></div>
+				</div>
+				<md-card-actions layout="row" layout-align="start center">
+					<md-button>Hide</md-button>
+					<md-button class="md-accent" ng-click="showPrerenderedDialog($event)">Publish</md-button>
+				</md-card-actions>
+			</md-card>
+			
+			<md-card type="titleOnly">
+				<div class="contentCardTitle">Aliquam nec tellus lectus donec suscipit arcu id purus</div>
+				<div class="md-subhead">Author: <span class="contentCardInfoHglt">root</span>&nbsp;&nbsp;|&nbsp;&nbsp;Created: <span class="contentCardInfoHglt">August 8, 13:47</span></div>
+				<md-card-actions layout="row" layout-align="start center">
+					<md-button>Hide</md-button>
+					<md-button class="md-accent">Publish</md-button>
+				</md-card-actions>
+			</md-card>
+			
+			<md-card type="imageOnly">
+				<div class="contentCardLeftLargeImgContainer">
+					<img src="img/articlepreview03.jpg">
+				</div>
+				<div class="contentCardSmallRightContentContainer">
+					<div class="md-subhead">Author: <span class="contentCardInfoHglt">root</span></div>
+					<div class="md-subhead">Created: <span class="contentCardInfoHglt">August 8, 13:47</span></div>
+				</div>
+				<md-card-actions layout="row" layout-align="start center">
+					<md-button>Hide</md-button>
+					<md-button class="md-accent">Publish</md-button>
+				</md-card-actions>
+			</md-card>
+			
+			<md-card type="imageOnly">
+				<div class="contentCardLeftLargeImgContainer">
+					<img src="img/articlepreview04.jpg">
+				</div>
+				<div class="contentCardSmallRightContentContainer">
+					<div class="md-subhead">Author: <span class="contentCardInfoHglt">root</span></div>
+					<div class="md-subhead">Created: <span class="contentCardInfoHglt">August 8, 13:47</span></div>
+				</div>
+				<md-card-actions layout="row" layout-align="start center">
+					<md-button>Hide</md-button>
+					<md-button class="md-accent">Publish</md-button>
+				</md-card-actions>
+			</md-card>
+			
+			<md-card type="titleAndImage">
+				<div class="contentCardLeftSmallImgContainer">
+					<img src="img/articlepreview05.jpg">
+				</div>
+				<div class="contentCardLargeRightContentContainer">
+					<div class="contentCardTitle">Vestibulum ultricies est sed dolor dapibus luctus</div>
+					<div class="md-subhead">Author: <span class="contentCardInfoHglt">root</span>&nbsp;&nbsp;|&nbsp;&nbsp;Created: <span class="contentCardInfoHglt">August 8, 13:47</span></div>
+				</div>
+				<md-card-actions layout="row" layout-align="start center">
+					<md-button>Hide</md-button>
+					<md-button class="md-accent" ng-click="showPrerenderedDialog($event)">Publish</md-button>
+				</md-card-actions>
+			</md-card>
+			
+			<md-card type="titleOnly">
+				<div class="contentCardTitle">Integer trisbero ac ultricies porttitor, purus est congue nibh, quis suscip</div>
+				<div class="md-subhead">Author: <span class="contentCardInfoHglt">root</span>&nbsp;&nbsp;|&nbsp;&nbsp;Created: <span class="contentCardInfoHglt">August 8, 13:47</span></div>
+				<md-card-actions layout="row" layout-align="start center">
+					<md-button>Hide</md-button>
+					<md-button class="md-accent">Publish</md-button>
+				</md-card-actions>
+			</md-card>
+			
+			<md-card type="titleOnly">
+				<div class="contentCardTitle">Nulla ultrices enim ac turpis hendrerit maximus enim commodo</div>
+				<div class="md-subhead">Author: <span class="contentCardInfoHglt">root</span>&nbsp;&nbsp;|&nbsp;&nbsp;Created: <span class="contentCardInfoHglt">August 8, 13:47</span></div>
+				<md-card-actions layout="row" layout-align="start center">
+					<md-button>Hide</md-button>
+					<md-button class="md-accent">Publish</md-button>
+				</md-card-actions>
+			</md-card>
+			
+			<md-card type="titleAndImage">
+				<div class="contentCardLeftSmallImgContainer">
+					<img src="img/articlepreview06.jpg">
+				</div>
+				<div class="contentCardLargeRightContentContainer">
+					<div class="contentCardTitle">Maecenas aliquam metus eu faucibus dignissim</div>
+					<div class="md-subhead">Author: <span class="contentCardInfoHglt">root</span>&nbsp;&nbsp;|&nbsp;&nbsp;Created: <span class="contentCardInfoHglt">August 8, 13:47</span></div>
+				</div>
+				<md-card-actions layout="row" layout-align="start center">
+					<md-button>Hide</md-button>
+					<md-button class="md-accent" ng-click="showPrerenderedDialog($event)">Publish</md-button>
+				</md-card-actions>
+			</md-card>
+			
+			<md-card type="titleOnly">
+				<div class="contentCardTitle">Donec viverra a mauris eget auctor sed a augue eu torto</div>
+				<div class="md-subhead">Author: <span class="contentCardInfoHglt">root</span>&nbsp;&nbsp;|&nbsp;&nbsp;Created: <span class="contentCardInfoHglt">August 8, 13:47</span></div>
+				<md-card-actions layout="row" layout-align="start center">
+					<md-button>Hide</md-button>
+					<md-button class="md-accent">Publish</md-button>
+				</md-card-actions>
+			</md-card>
+			
+			<md-card type="imageOnly">
+				<div class="contentCardLeftLargeImgContainer">
+					<img src="img/articlepreview07.jpg">
+				</div>
+				<div class="contentCardSmallRightContentContainer">
+					<div class="md-subhead">Author: <span class="contentCardInfoHglt">root</span></div>
+					<div class="md-subhead">Created: <span class="contentCardInfoHglt">August 8, 13:47</span></div>
+				</div>
+				<md-card-actions layout="row" layout-align="start center">
+					<md-button>Hide</md-button>
+					<md-button class="md-accent">Publish</md-button>
+				</md-card-actions>
+			</md-card>
+			
+			<md-card type="imageOnly">
+				<div class="contentCardLeftLargeImgContainer">
+					<img src="img/articlepreview08.jpg">
+				</div>
+				<div class="contentCardSmallRightContentContainer">
+					<div class="md-subhead">Author: <span class="contentCardInfoHglt">root</span></div>
+					<div class="md-subhead">Created: <span class="contentCardInfoHglt">August 8, 13:47</span></div>
+				</div>
+				<md-card-actions layout="row" layout-align="start center">
+					<md-button>Hide</md-button>
+					<md-button class="md-accent">Publish</md-button>
+				</md-card-actions>
+			</md-card>
+			
+			<md-card type="titleOnly">
+				<div class="contentCardTitle">Phasellus consequat, leo sit amet auctor tincidunt, lectus metus</div>
+				<div class="md-subhead">Author: <span class="contentCardInfoHglt">root</span>&nbsp;&nbsp;|&nbsp;&nbsp;Created: <span class="contentCardInfoHglt">August 8, 13:47</span></div>
+				<md-card-actions layout="row" layout-align="start center">
+					<md-button>Hide</md-button>
+					<md-button class="md-accent">Publish</md-button>
+				</md-card-actions>
+			</md-card>
+			
+			<md-card type="titleOnly">
+				<div class="contentCardTitle">Sed vitae orci id erat bibendum sodales ac eu dolor</div>
+				<div class="md-subhead">Author: <span class="contentCardInfoHglt">root</span>&nbsp;&nbsp;|&nbsp;&nbsp;Created: <span class="contentCardInfoHglt">August 8, 13:47</span></div>
+				<md-card-actions layout="row" layout-align="start center">
+					<md-button>Hide</md-button>
+					<md-button class="md-accent">Publish</md-button>
+				</md-card-actions>
+			</md-card>
+			
+			<md-card type="titleOnly">
+				<div class="contentCardTitle">Nullam pretium euismod nibh ut vulputate fusce ut justo et</div>
+				<div class="md-subhead">Author: <span class="contentCardInfoHglt">root</span>&nbsp;&nbsp;|&nbsp;&nbsp;Created: <span class="contentCardInfoHglt">August 8, 13:47</span></div>
+				<md-card-actions layout="row" layout-align="start center">
+					<md-button>Hide</md-button>
+					<md-button class="md-accent">Publish</md-button>
+				</md-card-actions>
+			</md-card>
+			
+			<md-card type="titleAndImage">
+				<div class="contentCardLeftSmallImgContainer">
+					<img src="img/articlepreview09.jpg">
+				</div>
+				<div class="contentCardLargeRightContentContainer">
+					<div class="contentCardTitle">In est magna condimentum ac purus semper rutrum auctor odio</div>
+					<div class="md-subhead">Author: <span class="contentCardInfoHglt">root</span>&nbsp;&nbsp;|&nbsp;&nbsp;Created: <span class="contentCardInfoHglt">August 8, 13:47</span></div>
+				</div>
+				<md-card-actions layout="row" layout-align="start center">
+					<md-button>Hide</md-button>
+					<md-button class="md-accent" ng-click="showPrerenderedDialog($event)">Publish</md-button>
+				</md-card-actions>
+			</md-card>
+			
+			<md-card type="imageOnly">
+				<div class="contentCardLeftLargeImgContainer">
+					<img src="img/articlepreview10.jpg">
+				</div>
+				<div class="contentCardSmallRightContentContainer">
+					<div class="md-subhead">Author: <span class="contentCardInfoHglt">root</span></div>
+					<div class="md-subhead">Created: <span class="contentCardInfoHglt">August 8, 13:47</span></div>
+				</div>
+				<md-card-actions layout="row" layout-align="start center">
+					<md-button>Hide</md-button>
+					<md-button class="md-accent">Publish</md-button>
+				</md-card-actions>
+			</md-card>
+			
+			<md-card type="titleAndImage">
+				<div class="contentCardLeftSmallImgContainer">
+					<img src="img/articlepreview11.jpg">
+				</div>
+				<div class="contentCardLargeRightContentContainer">
+					<div class="contentCardTitle">Pellentesque aliquet est eu nisi porttitor interdum sed nec</div>
+					<div class="md-subhead">Author: <span class="contentCardInfoHglt">root</span>&nbsp;&nbsp;|&nbsp;&nbsp;Created: <span class="contentCardInfoHglt">August 8, 13:47</span></div>
+				</div>
+				<md-card-actions layout="row" layout-align="start center">
+					<md-button>Hide</md-button>
+					<md-button class="md-accent" ng-click="showPrerenderedDialog($event)">Publish</md-button>
+				</md-card-actions>
+			</md-card>
+			
+			<md-card type="titleOnly">
+				<div class="contentCardTitle">Vestibulum varius vestibulum tellus sed vehicula purus viverra</div>
+				<div class="md-subhead">Author: <span class="contentCardInfoHglt">root</span>&nbsp;&nbsp;|&nbsp;&nbsp;Created: <span class="contentCardInfoHglt">August 8, 13:47</span></div>
+				<md-card-actions layout="row" layout-align="start center">
+					<md-button>Hide</md-button>
+					<md-button class="md-accent">Publish</md-button>
+				</md-card-actions>
+			</md-card>
+			
+			<md-card type="titleOnly">
+				<div class="contentCardTitle">Nunc commodo diam ligula vel maximus sapien</div>
+				<div class="md-subhead">Author: <span class="contentCardInfoHglt">root</span>&nbsp;&nbsp;|&nbsp;&nbsp;Created: <span class="contentCardInfoHglt">August 8, 13:47</span></div>
+				<md-card-actions layout="row" layout-align="start center">
+					<md-button>Hide</md-button>
+					<md-button class="md-accent">Publish</md-button>
+				</md-card-actions>
+			</md-card>			
+			
+		</section>
+				</div>
+				<div tab-id="2" class="tab">Tabbed Content 2</div>
+				<div tab-id="3" class="tab">Tabbed Content 3</div>
+			</div>
+			</div>
+		</div>
+
+		
+		
+		<!-- Dialog -->
+		<div style="visibility: hidden">
+			<div class="md-dialog-container" id="myDialogFace">
+				<md-dialog class="publishModal">
+				
+					<div class="topStepperBarContainer">
+						<div class="stepperLine"></div>
+						<div class="stepOneContainer stepActive">
+							<div class="stepNumber">1</div>
+							<div class="stepNumberComplete" style="display:none">
+								<md-icon md-svg-icon="img/icons/ic_check_white_36px.svg"></md-icon>
+							</div>
+							<div class="stepName">Select Social Network</div>
+						</div>
+						<div class="stepTwoContainer">
+							<div class="stepNumber">2</div>
+							<div class="stepNumberComplete" style="display:none">
+								<md-icon md-svg-icon="img/icons/ic_check_white_36px.svg"></md-icon>
+							</div>
+							<div class="stepName">Personalize content</div>
+						</div>
+						<div class="stepThreeContainer">
+							<div class="stepNumber">3</div>
+							<div class="stepNumberComplete" style="display:none">
+								<md-icon md-svg-icon="img/icons/ic_check_white_36px.svg"></md-icon>
+							</div>
+							<div class="stepName">Set timer</div>
+						</div>
+					</div>
+					
+					<!-- Step 1 content -->
+					<div class="stepContainer stepOneContentContainer">
+						<h3>Select the service for which you want to schedule the publication of this content.</h3>
+						<div class="socialSelectCont">
+							<div class="socialSelect">
+								<img src="img/Twitter_logo_blue.png" class="socialSelectLogo" />
+								<div class="socialSelectName">Twitter</div>
+							</div>
+							<div class="socialSelect">
+								<img src="img/facebook_logo.png" class="socialSelectLogo" />
+								<div class="socialSelectName">Facebook</div>
+							</div>
+							<div class="socialSelect">
+								<img src="img/Instagram_logo.png" class="socialSelectLogo" />
+								<div class="socialSelectName">Instagram</div>
+							</div>
+							<div class="socialSelect newAccount">
+								<md-icon md-svg-icon="img/icons/ic_person_add_black_36px.svg" class=""></md-icon>
+								<md-tooltip md-direction="bottom">
+									Add new account
+								</md-tooltip>
+							</div>
+						</div>
+						<md-card-actions layout="row" layout-align="end center" class="pageStepperOneControls">
+							<md-button class="stepperLeftButton" ng-disabled="true">Back</md-button>
+							<md-button ng-click="hide()">Cancel</md-button>
+							<md-button class="md-accent" id="pageOneToPageTwo">Continue</md-button>
+						</md-card-actions>
+						
+					</div>
+					
+					<!-- Step 2 content -->
+					<div class="stepContainer stepTwoContentContainer" style="display: none">
+						<div class="tbpUrlContainer">
+							<md-input-container class="md-block" flex-gt-sm>
+								<label>Content URL</label>
+								<input ng-model="content.url" disabled>
+							</md-input-container>
+						</div>
+						<div class="tbpWidgetContainer">
+							
+							<md-input-container class="md-block">
+								<label>Tweet</label>
+								<textarea ng-model="content.customDescription" md-maxlength="140"></textarea>
+							</md-input-container>
+							
+							<div class="tbpWidgetContentLinkPreview">
+								<img src="img/articlepreview05.jpg" />
+								<div class="tbpLinkPrevTitle">Some amazing content title</div>
+								<div class="tbpLinkPrevDesc">
+									Lorem ipsum dolor sit amet, ius malorum labores insolens at, falli
+									causae mea et. An noster omittam consulatu vel, cu pro tempor
+									phaedrum, no ius senser iera postulant dissentias...
+								</div>
+								<div class="tbpLinkPrevLink">myawesomesite.com</div>
+							</div>
+						</div>
+						<div class="tbpHashtagsContainer">
+							<div class="tbpTagCloudTitle">Top most used tags:</div>
+							<div class="tbpTagCloudContainer">
+								<span>#awesome</span>
+								<span>#tags</span>
+								<span>#content</span>
+								<span>#mostused</span>
+								<span>#amazing </span>
+								<span>#loremispom </span>
+							</div>
+						</div>
+						<md-card-actions layout="row" layout-align="end center" class="pageStepperTwoControls">
+							<md-button class="stepperLeftButton" ng-disabled="false" id="pageTwoToPageOne">Back</md-button>
+							<md-button ng-click="hide()">Cancel</md-button>
+							<md-button class="md-accent" id="pageTwoToPageThree">Continue</md-button>
+						</md-card-actions>
+					</div>
+					
+					<!-- Step 2 content -->
+					<div class="stepContainer stepThreeContentContainer" style="display: none">
+					
+						
+						<h3>Select the date and time to publish this content or click on "Publish now" to publish it now.</h3>
+						
+						
+						<div class="publisherModalTimerSelectContainer">
+						
+							<mdp-date-picker mdp-placeholder="Select date" ng-model="currentDate"></mdp-date-picker>
+
+							<mdp-time-picker mdp-placeholder="Select time" mdp-auto-switch="true" ng-model="currentTime"></mdp-time-picker>
+							
+						</div>
+						
+						<div class="publisherModalTimerNowContainer">
+							<md-button class="md-raised" id="">Publish now</md-button>
+						</div>
+					
+						<md-card-actions layout="row" layout-align="end center" class="pageStepperThreeControls">
+							<md-button class="stepperLeftButton" ng-disabled="false" id="pageThreeToPageTwo">Back</md-button>
+							<md-button ng-click="hide()">Cancel</md-button>
+							<md-button class="md-accent"onClick="window.open('calendar.html', '_self');">Set publication</md-button>
+						</md-card-actions>
+					</div>
+					
+				</md-dialog>
+			</div>
+		</div>
+		
+		<!-- JS imports -->
+		<script src="js/jquery.min.js" type="text/javascript"></script>
+		
+		<script src="js/angular.js" type="text/javascript"></script>
+		<script src="js/angular-animate.min.js" type="text/javascript"></script>
+		<script src="js/angular-route.min.js" type="text/javascript"></script>
+		<script src="js/angular-aria.min.js" type="text/javascript"></script>
+		<script src="js/angular-messages.min.js" type="text/javascript"></script>
+		<script src="js/angular-material.js" type="text/javascript"></script>
+		
+		<script src="js/moment.min.js" type="text/javascript"></script>
+		<script src="js/mdPickers.min.js" type="text/javascript"></script>
+	
+		<script src="js/main.js" type="text/javascript"></script>
+		
+		<script>
+			// Wait for window load
+			$(window).load(function() {
+			
+				setTimeout(function(){
+					$("#pageloader").fadeOut('fast');
+				}, 500);
+			});
+		</script>
+
+	</body>
+</html>
